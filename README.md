@@ -72,4 +72,4 @@ Le succès de ce MVP crée la traction pour les modules suivants (ERP, Marketpla
 
 ---
 
-> **Mantra Eteyelo** : « Frapper fort dès le départ » — chaque commit doit contribuer à l’effet WOW et à la crédibilité du projet.
+> **Mantra Eteyelo** : « Frapper fort dès le départ »  chaque commit doit contribuer à l’effet WOW et à la crédibilité du projet.

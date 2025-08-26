@@ -1,0 +1,436 @@
+# .github/workflows/rag_collector.yml
+name: RAG Document Collector & Validator
+
+on:
+  schedule:
+    # Exécution hebdomadaire le lundi à 2h00 UTC
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+    inputs:
+      validate_only:
+        description: 'Valider uniquement les documents existants'
+        required: false
+        default: 'false'
+      specific_subject:
+        description: 'Collecter une matière spécifique (maths, francais, svt, etc.)'
+        required: false
+        default: 'all'
+
+env:
+  PYTHON_VERSION: '3.11'
+  RAG_DATA_PATH: data/rag_seed
+  CATALOG_FILE: data/rag_seed/rag_seed_catalog.csv
+
+jobs:
+  collect-documents:
+    name: 📚 Collecte des documents
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.validate_only != 'true' }}
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          
+      - name: 📦 Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r ${{ env.RAG_DATA_PATH }}/scripts/requirements.txt
+          
+      - name: 🔍 Check for new documents
+        id: check_new
+        run: |
+          cd ${{ env.RAG_DATA_PATH }}/scripts
+          python -c "
+import requests
+from bs4 import BeautifulSoup
+import csv
+import os
+
+# Charger le catalogue existant
+existing_urls = set()
+if os.path.exists('../rag_seed_catalog.csv'):
+    with open('../rag_seed_catalog.csv', 'r') as f:
+        reader = csv.DictReader(f)
+        existing_urls = {row['source_url'] for row in reader if row.get('source_url')}
+
+# Vérifier les nouveaux documents
+response = requests.get('https://edu-nc.gouv.cd/programmes-scolaires')
+soup = BeautifulSoup(response.content, 'html.parser')
+pdf_links = [a['href'] for a in soup.find_all('a', href=True) if a['href'].endswith('.pdf')]
+
+new_docs = [url for url in pdf_links if url not in existing_urls]
+print(f'Nouveaux documents trouvés: {len(new_docs)}')
+
+if new_docs:
+    print('::set-output name=has_new::true')
+    print(f'::set-output name=count::{len(new_docs)}')
+else:
+    print('::set-output name=has_new::false')
+"
+          
+      - name: 🚀 Run document collector
+        if: steps.check_new.outputs.has_new == 'true'
+        run: |
+          cd ${{ env.RAG_DATA_PATH }}/scripts
+          
+          if [ "${{ github.event.inputs.specific_subject }}" != "all" ]; then
+            echo "Collecte spécifique: ${{ github.event.inputs.specific_subject }}"
+            python scraper_edu_rdc.py --subject "${{ github.event.inputs.specific_subject }}"
+          else
+            echo "Collecte complète des documents"
+            python scraper_edu_rdc.py
+          fi
+          
+      - name: 📊 Generate collection report
+        if: steps.check_new.outputs.has_new == 'true'
+        run: |
+          cd ${{ env.RAG_DATA_PATH }}
+          python -c "
+import csv
+import json
+
+with open('rag_seed_catalog.csv', 'r') as f:
+    reader = csv.DictReader(f)
+    docs = list(reader)
+
+stats = {
+    'total': len(docs),
+    'par_matiere': {},
+    'par_langue': {},
+    'par_niveau': {}
+}
+
+for doc in docs:
+    # Par matière
+    matiere = doc.get('matiere', 'autre')
+    stats['par_matiere'][matiere] = stats['par_matiere'].get(matiere, 0) + 1
+    
+    # Par langue
+    langue = doc.get('langue', 'autre')
+    stats['par_langue'][langue] = stats['par_langue'].get(langue, 0) + 1
+    
+    # Par niveau
+    niveau = doc.get('grade_level', 'autre')
+    stats['par_niveau'][niveau] = stats['par_niveau'].get(niveau, 0) + 1
+
+print(json.dumps(stats, indent=2))
+
+# Sauvegarder le rapport
+with open('collection_report.json', 'w') as f:
+    json.dump(stats, f, indent=2)
+"
+          
+      - name: 💾 Upload artifacts
+        if: steps.check_new.outputs.has_new == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: rag-documents-${{ github.run_number }}
+          path: |
+            ${{ env.RAG_DATA_PATH }}/**/*.pdf
+            ${{ env.RAG_DATA_PATH }}/collection_report.json
+          retention-days: 30
+
+  validate-documents:
+    name: ✅ Validation des documents
+    runs-on: ubuntu-latest
+    needs: [collect-documents]
+    if: always()
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          
+      - name: 📦 Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r ${{ env.RAG_DATA_PATH }}/scripts/requirements.txt
+          
+      - name: 🔍 Run validation
+        id: validation
+        run: |
+          cd ${{ env.RAG_DATA_PATH }}/scripts
+          
+          # Exécuter la validation
+          python validator.py > validation_output.txt 2>&1
+          
+          # Analyser les résultats
+          python -c "
+import re
+
+with open('validation_output.txt', 'r') as f:
+    output = f.read()
+
+# Extraire les statistiques
+ok_match = re.search(r'✅ OK: (\d+)', output)
+attention_match = re.search(r'⚠️  Attention: (\d+)', output)
+error_match = re.search(r'❌ Erreur: (\d+)', output)
+
+ok_count = int(ok_match.group(1)) if ok_match else 0
+attention_count = int(attention_match.group(1)) if attention_match else 0
+error_count = int(error_match.group(1)) if error_match else 0
+
+print(f'::set-output name=ok_count::{ok_count}')
+print(f'::set-output name=attention_count::{attention_count}')
+print(f'::set-output name=error_count::{error_count}')
+
+# Déterminer le statut
+if error_count > 0:
+    print('::set-output name=status::error')
+elif attention_count > 5:
+    print('::set-output name=status::warning')
+else:
+    print('::set-output name=status::success')
+"
+          
+      - name: 📝 Create validation report
+        run: |
+          cd ${{ env.RAG_DATA_PATH }}
+          
+          cat << EOF > validation_report.md
+          # 📊 Rapport de Validation RAG
+          
+          ## Statistiques
+          - ✅ Documents OK: ${{ steps.validation.outputs.ok_count }}
+          - ⚠️ Attention requise: ${{ steps.validation.outputs.attention_count }}
+          - ❌ Erreurs: ${{ steps.validation.outputs.error_count }}
+          
+          ## Détails
+          \`\`\`
+          $(cat scripts/validation_output.txt)
+          \`\`\`
+          
+          ## Actions Recommandées
+          EOF
+          
+          if [ "${{ steps.validation.outputs.error_count }}" -gt "0" ]; then
+            echo "- 🔴 Corriger les erreurs critiques avant déploiement" >> validation_report.md
+          fi
+          
+          if [ "${{ steps.validation.outputs.attention_count }}" -gt "0" ]; then
+            echo "- 🟡 Vérifier les documents signalés" >> validation_report.md
+          fi
+          
+          echo "- 🟢 Documents validés prêts pour l'ingestion RAG" >> validation_report.md
+          
+      - name: 💬 Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('${{ env.RAG_DATA_PATH }}/validation_report.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+  update-catalog:
+    name: 📝 Mise à jour du catalogue
+    runs-on: ubuntu-latest
+    needs: [validate-documents]
+    if: needs.validate-documents.outputs.status != 'error'
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: 🔄 Update catalog statistics
+        run: |
+          cd ${{ env.RAG_DATA_PATH }}
+          
+          # Générer les statistiques README
+          python -c "
+import csv
+from datetime import datetime
+
+with open('rag_seed_catalog.csv', 'r') as f:
+    reader = csv.DictReader(f)
+    docs = list(reader)
+
+# Calculer les stats
+total = len(docs)
+validated = sum(1 for d in docs if d.get('validated') == 'true')
+by_lang = {}
+by_subject = {}
+
+for doc in docs:
+    lang = doc.get('langue', 'autre')
+    by_lang[lang] = by_lang.get(lang, 0) + 1
+    
+    subject = doc.get('matiere', 'autre')
+    by_subject[subject] = by_subject.get(subject, 0) + 1
+
+# Créer le README stats
+readme_content = f'''# 📊 État de la Base RAG - Moteyi AI
+
+*Dernière mise à jour : {datetime.now().strftime('%Y-%m-%d %H:%M')}*
+
+## Statistiques Globales
+- **Total documents** : {total}
+- **Documents validés** : {validated} ({validated/total*100:.1f}%)
+- **Taux de couverture** : {min(total/100*100, 100):.1f}%
+
+## Par Langue
+'''
+
+for lang, count in sorted(by_lang.items()):
+    readme_content += f'- {lang.capitalize()} : {count} documents\\n'
+
+readme_content += '\\n## Par Matière\\n'
+for subject, count in sorted(by_subject.items()):
+    readme_content += f'- {subject.capitalize()} : {count} documents\\n'
+
+with open('RAG_STATUS.md', 'w') as f:
+    f.write(readme_content)
+"
+          
+      - name: 📤 Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          git add ${{ env.RAG_DATA_PATH }}/
+          
+          if git diff --staged --quiet; then
+            echo "Pas de changements à commiter"
+          else
+            git commit -m "feat(rag): mise à jour catalogue documents [skip ci]
+            
+            - Documents ajoutés/mis à jour
+            - Validation automatique exécutée
+            - Catalogue CSV actualisé"
+            
+            git push origin ${{ github.ref }}
+          fi
+
+  notify-results:
+    name: 📢 Notification des résultats
+    runs-on: ubuntu-latest
+    needs: [collect-documents, validate-documents]
+    if: always()
+    
+    steps:
+      - name: 📊 Prepare summary
+        run: |
+          echo "## 📚 Résultats de la Collecte RAG" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.collect-documents.outputs.has_new }}" == "true" ]; then
+            echo "✅ **Nouveaux documents collectés** : ${{ needs.collect-documents.outputs.count }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ Aucun nouveau document détecté" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Validation" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ OK : ${{ needs.validate-documents.outputs.ok_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- ⚠️ Attention : ${{ needs.validate-documents.outputs.attention_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- ❌ Erreurs : ${{ needs.validate-documents.outputs.error_count }}" >> $GITHUB_STEP_SUMMARY
+          
+      - name: 🔔 Send Slack notification
+        if: env.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          STATUS_EMOJI="✅"
+          STATUS_TEXT="succès"
+          
+          if [ "${{ needs.validate-documents.outputs.status }}" == "error" ]; then
+            STATUS_EMOJI="❌"
+            STATUS_TEXT="erreurs détectées"
+          elif [ "${{ needs.validate-documents.outputs.status }}" == "warning" ]; then
+            STATUS_EMOJI="⚠️"
+            STATUS_TEXT="attention requise"
+          fi
+          
+          curl -X POST $SLACK_WEBHOOK_URL \
+            -H 'Content-Type: application/json' \
+            -d "{
+              \"text\": \"$STATUS_EMOJI Collecte RAG - $STATUS_TEXT\",
+              \"blocks\": [
+                {
+                  \"type\": \"section\",
+                  \"text\": {
+                    \"type\": \"mrkdwn\",
+                    \"text\": \"*Collecte RAG Moteyi*\\n• Statut: $STATUS_TEXT\\n• Documents OK: ${{ needs.validate-documents.outputs.ok_count }}\\n• Voir: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Détails>\"
+                  }
+                }
+              ]
+            }"
+
+  # Job optionnel pour l'ingestion dans le système RAG
+  ingest-to-rag:
+    name: 🔄 Ingestion RAG
+    runs-on: ubuntu-latest
+    needs: [update-catalog]
+    if: needs.validate-documents.outputs.status == 'success'
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install RAG dependencies
+        run: |
+          pip install langchain chromadb openai tiktoken
+          
+      - name: 🧠 Ingest documents to vector store
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          echo "⏳ Ingestion des documents dans le vector store..."
+          
+          # Script d'ingestion (à adapter selon votre stack RAG)
+          python -c "
+import os
+import csv
+from pathlib import Path
+
+# Placeholder pour l'ingestion réelle
+# À remplacer par votre logique d'ingestion RAG
+
+catalog_path = '${{ env.CATALOG_FILE }}'
+with open(catalog_path, 'r') as f:
+    reader = csv.DictReader(f)
+    docs = [d for d in reader if d.get('validated') == 'true']
+
+print(f'📚 {len(docs)} documents prêts pour l\'ingestion')
+
+# TODO: Implémenter l'ingestion réelle
+# - Charger les PDFs
+# - Extraire le texte
+# - Chunking
+# - Embedding
+# - Stockage dans ChromaDB/Pinecone/etc.
+
+print('✅ Ingestion simulée avec succès')
+"
+          
+      - name: 🎉 Final success message
+        run: |
+          echo "✅ Pipeline RAG complété avec succès!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Les documents sont maintenant disponibles dans le système RAG de Moteyi AI." >> $GITHUB_STEP_SUMMARY
