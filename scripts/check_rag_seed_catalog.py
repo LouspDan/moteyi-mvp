@@ -2,8 +2,8 @@
 import csv, sys, json, os
 
 EXPECTED = [
-  "id","title","source_url","language","grade_level","subject","doc_type",
-  "file_path","checksum","license","ingested","notes"
+  "id","titre","source_url","langue","grade_level","matiere","type_doc",
+  "file_path","checksum","licence","ingested","validated","notes"
 ]
 
 path = "data/rag_seed/rag_seed_catalog.csv"
