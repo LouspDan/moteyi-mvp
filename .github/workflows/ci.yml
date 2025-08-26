@@ -1,0 +1,33 @@
+name: CI — Moteyi MVP
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Repo quality checks
+        run: bash scripts/quality_checks.sh
+
+      - name: Validate RAG seed catalog
+        run: python3 scripts/check_rag_seed_catalog.py
+
+      - name: Upload CI artifacts (reports)
+        uses: actions/upload-artifact@v4
+        with:
+          name: moteyi-ci-reports
+          path: |
+            ci_reports/**
+            data/rag_seed/rag_seed_catalog.csv
