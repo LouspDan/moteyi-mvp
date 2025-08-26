@@ -1,0 +1,8 @@
+{{language}} | Contexte: {{context_brut}}
+Question utilisateur: {{question}}
+
+Contraintes:
+- Niveau: {{niveau_scolaire}}
+- Format attendu: {{format}} (texte court / audio / étape-par-étape)
+- Si image reçue: faire OCR puis répondre au contenu.
+

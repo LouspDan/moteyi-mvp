@@ -1,0 +1,24 @@
+# Secrets & env
+.env
+*.env
+config/keys/
+# System
+.DS_Store
+Thumbs.db
+# Python / Node caches
+__pycache__/
+*.pyc
+node_modules/
+# Data & exports
+data/**/*.pdf
+data/**/*.doc*
+data/**/*.zip
+data/**/*.csv
+!data/rag_seed/rag_seed_catalog.csv
+make_scenarios/**/*.json
+# Logs
+logs/
+*.log
+# VS code
+.vs/
+*.vsidx

@@ -1,0 +1,1 @@
+Placez ici les diagrammes (Mermaid, images, etc.).
