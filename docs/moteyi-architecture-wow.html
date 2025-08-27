@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moteyi Architecture - L'IA qui révolutionne l'éducation africaine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: heroEntry 1s ease-out;
+        }
+
+        @keyframes heroEntry {
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .tagline {
+            font-size: 1.4em;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6); }
+        }
+
+        /* Architecture Diagram */
+        .architecture {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #f093fb, #f5576c, #667eea, #764ba2);
+            border-radius: 30px;
+            z-index: -1;
+            animation: borderAnimation 3s linear infinite;
+        }
+
+        @keyframes borderAnimation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Flow Sections */
+        .flow-section {
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .flow-section:nth-child(1) { animation-delay: 0.2s; }
+        .flow-section:nth-child(2) { animation-delay: 0.4s; }
+        .flow-section:nth-child(3) { animation-delay: 0.6s; }
+        .flow-section:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        /* Flow Components */
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .flow-card {
+            background: linear-gradient(135deg, #f8f9ff, #fff);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .flow-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .flow-card.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            animation: cardPulse 1.5s infinite;
+        }
+
+        @keyframes cardPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .flow-card.active .card-icon {
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .card-description {
+            font-size: 0.95em;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .flow-card.active .badge {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        /* Connection Lines */
+        .flow-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .flow-arrow {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            animation: bounce 2s infinite;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .flow-line {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flowLine 2s linear infinite;
+        }
+
+        @keyframes flowLine {
+            0% { background-position: -100px; }
+            100% { background-position: 100px; }
+        }
+
+        /* Metrics Dashboard */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #f0f2ff;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9ff, #fff);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+
+        /* Interactive Demo Button */
+        .demo-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.5);
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 10px;
+            animation: statusPulse 2s infinite;
+        }
+
+        .status-green {
+            background: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .status-yellow {
+            background: #FFC107;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .tagline { font-size: 1.1em; }
+            .flow-grid { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated particles background -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🚀 Architecture Moteyi AI</h1>
+            <p class="tagline">L'IA révolutionnaire qui démocratise l'éducation en Afrique</p>
+            <div class="hero-badge">
+                ✨ Photo → Explication vocale multilingue en 5 secondes ✨
+            </div>
+        </div>
+
+        <!-- Main Architecture -->
+        <div class="architecture">
+            
+            <!-- User Input Section -->
+            <div class="flow-section">
+                <div class="section-title">
+                    <div class="section-icon">👤</div>
+                    <span>Entrée Utilisateur</span>
+                    <span class="status-indicator status-green"></span>
+                </div>
+                
+                <div class="flow-grid">
+                    <div class="flow-card active" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">📱</div>
+                            <div class="card-title">WhatsApp</div>
+                        </div>
+                        <div class="card-description">
+                            Parent/Élève envoie une photo du cahier ou pose une question
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">WhatsApp Business API</span>
+                            <span class="badge">Zero friction</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">🌍</div>
+                            <div class="card-title">Multilingue Native</div>
+                        </div>
+                        <div class="card-description">
+                            6 langues supportées : Lingala, Kikongo, Swahili, Tshiluba, Français, Anglais
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">Auto-détection langue</span>
+                            <span class="badge">Context local</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow Connector -->
+            <div class="flow-connector">
+                <div class="flow-line"></div>
+                <div class="flow-arrow">⬇️</div>
+            </div>
+
+            <!-- Orchestration Section -->
+            <div class="flow-section">
+                <div class="section-title">
+                    <div class="section-icon">⚡</div>
+                    <span>Orchestration & Edge</span>
+                    <span class="status-indicator status-green"></span>
+                </div>
+                
+                <div class="flow-grid">
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">🔄</div>
+                            <div class="card-title">Make.com</div>
+                        </div>
+                        <div class="card-description">
+                            Orchestration no-code du pipeline complet avec webhooks intelligents
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">Webhook receiver</span>
+                            <span class="badge">Flow automation</span>
+                            <span class="badge">Error handling</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">📊</div>
+                            <div class="card-title">Edge Metrics</div>
+                        </div>
+                        <div class="card-description">
+                            Logging JSONL, latence edge, événements temps réel
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">PostHog Events</span>
+                            <span class="badge">Real-time tracking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow Connector -->
+            <div class="flow-connector">
+                <div class="flow-line"></div>
+                <div class="flow-arrow">🧠</div>
+            </div>
+
+            <!-- RAG Pipeline Section -->
+            <div class="flow-section">
+                <div class="section-title">
+                    <div class="section-icon">🤖</div>
+                    <span>Pipeline RAG Intelligent</span>
+                    <span class="status-indicator status-green"></span>
+                </div>
+                
+                <div class="flow-grid">
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">👁️</div>
+                            <div class="card-title">Vision & OCR</div>
+                        </div>
+                        <div class="card-description">
+                            Extraction de texte manuscrit/imprimé avec 95% de précision
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">Google Vision API</span>
+                            <span class="badge">Manuscript support</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">📚</div>
+                            <div class="card-title">RAG Contextualisé</div>
+                        </div>
+                        <div class="card-description">
+                            Retrieval sur programmes officiels RDC + embeddings vectoriels
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">pgvector/Supabase</span>
+                            <span class="badge">MMR + Hybrid search</span>
+                            <span class="badge">20+ docs validés</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">💡</div>
+                            <div class="card-title">LLM Generation</div>
+                        </div>
+                        <div class="card-description">
+                            GPT-4o génère explications adaptées niveau + traduction instantanée
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">GPT-4o-mini</span>
+                            <span class="badge">Prompt engineering</span>
+                            <span class="badge">Context injection</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">🔊</div>
+                            <div class="card-title">Synthèse Vocale</div>
+                        </div>
+                        <div class="card-description">
+                            Voix naturelles en langues locales pour maximum d'accessibilité
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">ElevenLabs TTS</span>
+                            <span class="badge">6 voix natives</span>
+                            <span class="badge">Cache audio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow Connector -->
+            <div class="flow-connector">
+                <div class="flow-line"></div>
+                <div class="flow-arrow">📈</div>
+            </div>
+
+            <!-- Monitoring Section -->
+            <div class="flow-section">
+                <div class="section-title">
+                    <div class="section-icon">📊</div>
+                    <span>Monitoring & Analytics</span>
+                    <span class="status-indicator status-yellow"></span>
+                </div>
+                
+                <div class="flow-grid">
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">📈</div>
+                            <div class="card-title">PostHog Analytics</div>
+                        </div>
+                        <div class="card-description">
+                            Events tracking, KPIs, user journey, conversion funnels
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">Product analytics</span>
+                            <span class="badge">Real-time dashboards</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">🚨</div>
+                            <div class="card-title">Sentry & Alerting</div>
+                        </div>
+                        <div class="card-description">
+                            Error tracking, performance monitoring, alerting rules
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">Error tracking</span>
+                            <span class="badge">Performance</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">✅</div>
+                            <div class="card-title">UptimeRobot</div>
+                        </div>
+                        <div class="card-description">
+                            Monitoring de disponibilité 24/7 avec alertes instantanées
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">99.9% uptime</span>
+                            <span class="badge">Status page</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-card" onclick="animateCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">📋</div>
+                            <div class="card-title">CI/CD Pipeline</div>
+                        </div>
+                        <div class="card-description">
+                            GitHub Actions, quality checks, artifacts, automated testing
+                        </div>
+                        <div class="tech-badges">
+                            <span class="badge">GitHub Actions</span>
+                            <span class="badge">Quality gates</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metrics Dashboard -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">5s</div>
+                    <div class="metric-label">Latence totale</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">Précision OCR</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">0.02€</div>
+                    <div class="metric-label">Coût/requête</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">6</div>
+                    <div class="metric-label">Langues natives</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-label">Uptime SLA</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">1000+</div>
+                    <div class="metric-label">Familles cibles</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Button -->
+    <button class="demo-button" onclick="simulateFlow()">
+        🎯 Simuler le flux complet
+    </button>
+
+    <script>
+        // Generate animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Animate card on click
+        function animateCard(card) {
+            // Remove active from all cards
+            document.querySelectorAll('.flow-card').forEach(c => {
+                c.classList.remove('active');
+            });
+            // Add active to clicked card
+            card.classList.add('active');
+            
+            // Add ripple effect
+            const ripple = document.createElement('div');
+            ripple.style.position = 'absolute';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            ripple.style.background = 'rgba(102, 126, 234, 0.5)';
+            ripple.style.borderRadius = '50%';
+            ripple.style.transform = 'translate(-50%, -50%)';
+            ripple.style.pointerEvents = 'none';
+            ripple.style.animation = 'ripple 0.6s ease-out';
+            
+            card.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        }
+
+        // Simulate the complete flow
+        function simulateFlow() {
+            const cards = document.querySelectorAll('.flow-card');
+            let index = 0;
+            
+            // Clear all active states
+            cards.forEach(card => card.classList.remove('active'));
+            
+            // Animate cards sequentially
+            const interval = setInterval(() => {
+                if (index > 0) cards[index - 1].classList.remove('active');
+                if (index < cards.length) {
+                    cards[index].classList.add('active');
+                    index++;
+                } else {
+                    cards[cards.length - 1].classList.remove('active');
+                    clearInterval(interval);
+                    
+                    // Show success notification
+                    showNotification('✅ Flux complet exécuté avec succès!');
+                }
+            }, 500);
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.left = '50%';
+            notification.style.transform = 'translateX(-50%)';
+            notification.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+            notification.style.color = 'white';
+            notification.style.padding = '15px 30px';
+            notification.style.borderRadius = '50px';
+            notification.style.fontWeight = 'bold';
+            notification.style.boxShadow = '0 10px 30px rgba(76, 175, 80, 0.4)';
+            notification.style.zIndex = '2000';
+            notification.style.animation = 'slideDown 0.5s ease';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideUp 0.5s ease';
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                from {
+                    width: 20px;
+                    height: 20px;
+                    opacity: 1;
+                }
+                to {
+                    width: 400px;
+                    height: 400px;
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+            
+            @keyframes slideUp {
+                from {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-100%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize particles on load
+        createParticles();
+
+        // Auto-animate on page load
+        setTimeout(() => {
+            simulateFlow();
+        }, 2000);
+
+        // Add hover sound effects (optional - requires audio files)
+        document.querySelectorAll('.flow-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Add hover effect
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                // Reset hover effect
+                if (!card.classList.contains('active')) {
+                    card.style.transform = '';
+                }
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                simulateFlow();
+            }
+        });
+
+        // Add real-time metrics updates
+        function updateMetrics() {
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics[0].style.animation = 'pulse 2s';
+            setTimeout(() => {
+                metrics[0].style.animation = '';
+            }, 2000);
+        }
+
+        setInterval(updateMetrics, 10000);
+    </script>
+</body>
+</html>

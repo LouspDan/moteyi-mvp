@@ -1,0 +1,42 @@
+name: RAG ingest (weekly)
+
+on:
+  schedule:
+    - cron: "0 5 * * 1"   # Lundi 05:00 UTC
+  workflow_dispatch:
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-rag.txt ]; then pip install -r requirements-rag.txt; fi
+          pip install pypdf langdetect
+
+      - name: Run scraper (MEN-RDC)
+        run: |
+          python data/rag_seed/scripts/scraper_edu_rdc.py || echo "scraper_edu_rdc.py not found, skipping"
+
+      - name: Quality gate
+        run: python data/rag_seed/scripts/check_rag_quality.py
+
+      - name: Generate report
+        run: python data/rag_seed/scripts/report_rag.py
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(rag): weekly MEN-RDC refresh + QA"
+          title: "chore(rag): weekly MEN-RDC refresh + QA"
+          body: "Auto-ingestion + quality checks + report update"
+          branch: chore/rag-weekly
