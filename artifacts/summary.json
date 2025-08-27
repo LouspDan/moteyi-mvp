@@ -4,7 +4,7 @@
     "lang": "",
     "grade": "",
     "subject": "",
-    "count": 122,
+    "count": 182,
     "hit@1": 0.0,
     "coverage@5": 0.0,
     "mrr@5": 0.0
@@ -15,7 +15,7 @@
       "lang": "",
       "grade": "",
       "subject": "",
-      "count": 122,
+      "count": 182,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -25,7 +25,7 @@
       "lang": "lingala",
       "grade": "",
       "subject": "",
-      "count": 19,
+      "count": 28,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -45,7 +45,7 @@
       "lang": "lingala",
       "grade": "mathématiques",
       "subject": "",
-      "count": 6,
+      "count": 8,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -65,7 +65,7 @@
       "lang": "lingala",
       "grade": "français",
       "subject": "",
-      "count": 1,
+      "count": 4,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -75,7 +75,7 @@
       "lang": "kikongo",
       "grade": "",
       "subject": "",
-      "count": 17,
+      "count": 22,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -95,7 +95,7 @@
       "lang": "kikongo",
       "grade": "mathématiques",
       "subject": "",
-      "count": 1,
+      "count": 2,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -115,7 +115,7 @@
       "lang": "kikongo",
       "grade": "sciences",
       "subject": "",
-      "count": 7,
+      "count": 8,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -125,7 +125,7 @@
       "lang": "swahili",
       "grade": "",
       "subject": "",
-      "count": 20,
+      "count": 30,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -145,7 +145,7 @@
       "lang": "swahili",
       "grade": "mathématiques",
       "subject": "",
-      "count": 1,
+      "count": 3,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -165,7 +165,7 @@
       "lang": "swahili",
       "grade": "histoire-géo",
       "subject": "",
-      "count": 8,
+      "count": 10,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -175,7 +175,7 @@
       "lang": "tshiluba",
       "grade": "",
       "subject": "",
-      "count": 15,
+      "count": 20,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -195,7 +195,7 @@
       "lang": "tshiluba",
       "grade": "sciences",
       "subject": "",
-      "count": 5,
+      "count": 7,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -215,7 +215,7 @@
       "lang": "tshiluba",
       "grade": "français",
       "subject": "",
-      "count": 1,
+      "count": 2,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -225,7 +225,7 @@
       "lang": "français",
       "grade": "",
       "subject": "",
-      "count": 33,
+      "count": 51,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -245,7 +245,7 @@
       "lang": "français",
       "grade": "mathématiques",
       "subject": "",
-      "count": 6,
+      "count": 11,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -265,7 +265,7 @@
       "lang": "français",
       "grade": "sciences",
       "subject": "",
-      "count": 13,
+      "count": 18,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -275,7 +275,7 @@
       "lang": "anglais",
       "grade": "",
       "subject": "",
-      "count": 18,
+      "count": 31,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -295,7 +295,7 @@
       "lang": "anglais",
       "grade": "mathématiques",
       "subject": "",
-      "count": 1,
+      "count": 5,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -305,7 +305,7 @@
       "lang": "anglais",
       "grade": "3e_secondaire",
       "subject": "",
-      "count": 4,
+      "count": 8,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -315,7 +315,7 @@
       "lang": "anglais",
       "grade": "sciences",
       "subject": "",
-      "count": 7,
+      "count": 10,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -345,7 +345,7 @@
       "lang": "kikongo",
       "grade": "français",
       "subject": "",
-      "count": 5,
+      "count": 7,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -365,7 +365,7 @@
       "lang": "swahili",
       "grade": "français",
       "subject": "",
-      "count": 5,
+      "count": 8,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -385,7 +385,7 @@
       "lang": "tshiluba",
       "grade": "mathématiques",
       "subject": "",
-      "count": 5,
+      "count": 6,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -405,7 +405,7 @@
       "lang": "anglais",
       "grade": "français",
       "subject": "",
-      "count": 5,
+      "count": 8,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -565,7 +565,7 @@
       "lang": "lingala",
       "grade": "sciences",
       "subject": "",
-      "count": 6,
+      "count": 8,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -575,7 +575,7 @@
       "lang": "swahili",
       "grade": "sciences",
       "subject": "",
-      "count": 6,
+      "count": 9,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -585,7 +585,7 @@
       "lang": "français",
       "grade": "1e_secondaire",
       "subject": "",
-      "count": 4,
+      "count": 9,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -595,7 +595,7 @@
       "lang": "swahili",
       "grade": "1e_secondaire",
       "subject": "",
-      "count": 1,
+      "count": 4,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -605,7 +605,7 @@
       "lang": "français",
       "grade": "2e_secondaire",
       "subject": "",
-      "count": 4,
+      "count": 11,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -614,66 +614,6 @@
       "scope": "lang_grade",
       "lang": "anglais",
       "grade": "2e_secondaire",
-      "subject": "",
-      "count": 2,
-      "hit@1": 0.0,
-      "coverage@5": 0.0,
-      "mrr@5": 0.0
-    },
-    {
-      "scope": "lang_grade",
-      "lang": "tshiluba",
-      "grade": "2e_secondaire",
-      "subject": "",
-      "count": 3,
-      "hit@1": 0.0,
-      "coverage@5": 0.0,
-      "mrr@5": 0.0
-    },
-    {
-      "scope": "lang_grade",
-      "lang": "français",
-      "grade": "3e_secondaire",
-      "subject": "",
-      "count": 4,
-      "hit@1": 0.0,
-      "coverage@5": 0.0,
-      "mrr@5": 0.0
-    },
-    {
-      "scope": "lang_grade",
-      "lang": "lingala",
-      "grade": "3e_secondaire",
-      "subject": "",
-      "count": 3,
-      "hit@1": 0.0,
-      "coverage@5": 0.0,
-      "mrr@5": 0.0
-    },
-    {
-      "scope": "lang_grade",
-      "lang": "kikongo",
-      "grade": "1e_secondaire",
-      "subject": "",
-      "count": 2,
-      "hit@1": 0.0,
-      "coverage@5": 0.0,
-      "mrr@5": 0.0
-    },
-    {
-      "scope": "lang_subject",
-      "lang": "français",
-      "grade": "histoire-géo",
-      "subject": "",
-      "count": 14,
-      "hit@1": 0.0,
-      "coverage@5": 0.0,
-      "mrr@5": 0.0
-    },
-    {
-      "scope": "lang_subject",
-      "lang": "lingala",
-      "grade": "histoire-géo",
       "subject": "",
       "count": 6,
       "hit@1": 0.0,
@@ -681,11 +621,71 @@
       "mrr@5": 0.0
     },
     {
+      "scope": "lang_grade",
+      "lang": "tshiluba",
+      "grade": "2e_secondaire",
+      "subject": "",
+      "count": 6,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "français",
+      "grade": "3e_secondaire",
+      "subject": "",
+      "count": 10,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "lingala",
+      "grade": "3e_secondaire",
+      "subject": "",
+      "count": 6,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "kikongo",
+      "grade": "1e_secondaire",
+      "subject": "",
+      "count": 4,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "français",
+      "grade": "histoire-géo",
+      "subject": "",
+      "count": 19,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "lingala",
+      "grade": "histoire-géo",
+      "subject": "",
+      "count": 8,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
       "scope": "lang_subject",
       "lang": "tshiluba",
       "grade": "histoire-géo",
       "subject": "",
-      "count": 4,
+      "count": 5,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -695,7 +695,7 @@
       "lang": "kikongo",
       "grade": "histoire-géo",
       "subject": "",
-      "count": 4,
+      "count": 5,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -705,7 +705,7 @@
       "lang": "anglais",
       "grade": "1e_secondaire",
       "subject": "",
-      "count": 3,
+      "count": 8,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -725,7 +725,7 @@
       "lang": "lingala",
       "grade": "1e_secondaire",
       "subject": "",
-      "count": 2,
+      "count": 6,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -735,7 +735,7 @@
       "lang": "swahili",
       "grade": "2e_secondaire",
       "subject": "",
-      "count": 3,
+      "count": 7,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -745,7 +745,7 @@
       "lang": "kikongo",
       "grade": "3e_secondaire",
       "subject": "",
-      "count": 1,
+      "count": 2,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -755,7 +755,7 @@
       "lang": "tshiluba",
       "grade": "1e_secondaire",
       "subject": "",
-      "count": 1,
+      "count": 2,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
@@ -765,7 +765,57 @@
       "lang": "kikongo",
       "grade": "2e_secondaire",
       "subject": "",
+      "count": 3,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "tshiluba",
+      "grade": "3e_secondaire",
+      "subject": "",
       "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "swahili",
+      "grade": "3e_secondaire",
+      "subject": "",
+      "count": 3,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "anglais",
+      "grade": "history-geography",
+      "subject": "",
+      "count": 3,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "lingala",
+      "grade": "2e_secondaire",
+      "subject": "",
+      "count": 2,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "français",
+      "grade": "français",
+      "subject": "",
+      "count": 3,
       "hit@1": 0.0,
       "coverage@5": 0.0,
       "mrr@5": 0.0
