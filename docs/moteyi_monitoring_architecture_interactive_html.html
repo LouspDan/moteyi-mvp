@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moteyi — Schéma d’Architecture Monitoring (Interactif)</title>
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#0f1620; --muted:#72839a; --text:#e8eef7; --accent:#53b7ff; --accent2:#86efac; --warn:#f97316; --err:#fb7185; --ok:#22c55e;
+      --node:#101927; --nodeBorder:#2a3a4f; --edge:#2b88d8;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:radial-gradient(1200px 800px at 70% -10%,#14324f22,transparent),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;}
+    .app{display:grid;grid-template-columns: 1fr 360px;gap:16px;height:100%;}
+    header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #1d2b3f;background:linear-gradient(180deg,#0d1520,#0c131d);position:sticky;top:0;z-index:5}
+    header h1{font-size:18px;margin:0;font-weight:600;letter-spacing:.2px}
+    header .btns{display:flex;gap:8px}
+    .btn{background:#0f1a28;border:1px solid #26364a;color:var(--text);padding:8px 12px;border-radius:10px;cursor:pointer;font-size:13px}
+    .btn:hover{border-color:#345276}
+
+    .stage{position:relative;}
+    .panel{border-left:1px solid #1d2b3f;background:linear-gradient(180deg,#0e1520,#0b111a);padding:16px;overflow:auto}
+    .panel h2{font-size:16px;margin:0 0 8px}
+    .panel .muted{color:var(--muted);font-size:12px}
+
+    /* SVG graph */
+    svg{width:100%;height:calc(100vh - 64px);display:block;background:radial-gradient(900px 600px at 20% -10%,#20405a22,transparent)}
+    .node{filter: drop-shadow(0 4px 18px rgba(0,0,0,.25));}
+    .node rect{fill:var(--node);stroke:var(--nodeBorder);stroke-width:1.2}
+    .node text{font-size:12.5px;fill:var(--text)}
+    .badge{font-size:10.5px;fill:#90a4b8}
+    .edge{stroke:var(--edge);stroke-width:1.6;fill:none;marker-end:url(#arrow);opacity:.85}
+    .edge.pulse{stroke-dasharray:6 8;animation: flow 1.8s linear infinite}
+    @keyframes flow{to{stroke-dashoffset:-100}}
+
+    .legend{position:absolute;left:14px;bottom:14px;background:#0e1520bb;border:1px solid #22324a;border-radius:10px;padding:8px 10px;font-size:12px;backdrop-filter: blur(4px)}
+    .legend span{display:inline-flex;align-items:center;gap:6px;margin-right:10px}
+    .dot{width:10px;height:10px;border-radius:999px;display:inline-block}
+    .dot.edge{background:var(--edge)}
+    .dot.ok{background:var(--ok)}
+    .dot.err{background:var(--err)}
+
+    .tooltip{position:absolute;pointer-events:none;background:#0f1722;border:1px solid #22324a;border-radius:10px;padding:8px 10px;font-size:12px;color:var(--text);opacity:0;transform:translate(-50%,-120%);transition:opacity .12s ease}
+    .kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+    .kpi div{background:#0f1826;border:1px solid #23334a;border-radius:10px;padding:8px}
+    .kpi .val{font-size:16px;font-weight:700}
+    .pill{display:inline-flex;gap:6px;align-items:center;border:1px solid #2b3e59;padding:4px 8px;border-radius:999px;font-size:11px;margin:2px 4px 0 0}
+    .pill.ok{border-color:#205b3e;color:#a4f0c4}
+    .pill.warn{border-color:#5a3a1d;color:#ffd7ae}
+    .pill.err{border-color:#6b2230;color:#ffb3c0}
+    .list{margin:8px 0 0 0;padding:0 0 0 14px;font-size:13px;color:#cfe0ff}
+    .list li{margin:3px 0}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Moteyi — Schéma d’Architecture Monitoring (Interactif)</h1>
+      <div class="btns">
+        <button class="btn" id="btnPulse">▶︎ Animer le flux</button>
+        <button class="btn" id="btnReset">⟲ Réinitialiser</button>
+        <button class="btn" id="btnExport">⤓ Export PNG</button>
+      </div>
+    </header>
+
+    <div class="stage">
+      <svg viewBox="0 0 1200 760" id="graph" aria-label="Monitoring Architecture Graph">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--edge)" />
+          </marker>
+          <linearGradient id="gradEdge" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2b88d8"/>
+            <stop offset="100%" stop-color="#86efac"/>
+          </linearGradient>
+        </defs>
+        <!-- Edges dynamically created -->
+        <g id="edges"></g>
+        <!-- Nodes dynamically created -->
+        <g id="nodes"></g>
+      </svg>
+
+      <div class="legend">
+        <span><i class="dot edge"></i> Flux</span>
+        <span><i class="dot ok"></i> KPI OK</span>
+        <span><i class="dot err"></i> Erreur</span>
+      </div>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <aside class="panel" id="panel">
+      <h2>🌐 Aperçu</h2>
+      <div class="muted">Survolez un nœud pour voir les métriques clés. Cliquez pour les détails & bonnes pratiques.</div>
+      <div class="kpi">
+        <div><div class="val" id="kpiLatency">≤5.0s</div><div>Latence P95 bout-en-bout</div></div>
+        <div><div class="val" id="kpiUptime">≥99.5%</div><div>Uptime Webhook</div></div>
+      </div>
+      <div id="details">
+        <div class="pill ok">SLO Latence ≤ 5s</div>
+        <div class="pill warn">Feedback négatif &gt; 25%/h</div>
+        <div class="pill err">Erreur 5xx &gt; 2% / 5min</div>
+        <ul class="list">
+          <li>Events PostHog: request_received, ocr_done, retrieval_ok, llm_ok, reply_sent</li>
+          <li>Erreurs Sentry: ERR_OCR_TIMEOUT, ERR_PGVECTOR_UPSERT, ERR_RETRIEVAL_EMPTY, ERR_LLM_RATE_LIMIT</li>
+          <li>Alerting: Slack/Email selon seuils</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // --- Graph data ---------------------------------------------------------
+    const nodes = [
+      { id:'user', x:80,  y:90,  w:180, h:54, title:'Utilisateurs', badge:'WhatsApp / PWA', tips:['Messages/min','Médias reçus','Langue détectée']},
+      { id:'edge', x:320, y:90,  w:220, h:54, title:'Entrée & Orchestration', badge:'Webhook WhatsApp / Make', tips:['latency_edge_ms','http_error_rate','events: request_received']},
+      { id:'lg1',  x:580, y:90,  w:170, h:54, title:'Logs Ingest', badge:'JSONL', tips:['req_id','media_type','size_kb']},
+      { id:'m1',   x:780, y:90,  w:160, h:54, title:'Metrics Edge', badge:'Edge KPIs', tips:['p50/p95 latence','requests/min']},
+
+      { id:'scrape',x:160, y:230, w:210, h:58, title:'Scraper & Catalog', badge:'Étape 5', tips:['ingest_run','added/skipped','checksum']},
+      { id:'export',x:420, y:230, w:200, h:58, title:'Export JSONL', badge:'chunkers', tips:['chunks','mean_chars','export_ok']},
+      { id:'embed', x:660, y:230, w:180, h:58, title:'Embeddings', badge:'text-embedding-3', tips:['batch','ms/batch','cost']},
+      { id:'pg',    x:870, y:230, w:190, h:58, title:'pgvector', badge:'Supabase/Postgres', tips:['upserts','ivfflat','size']},
+      { id:'retr',  x:360, y:330, w:230, h:58, title:'Retrieval', badge:'MMR + Hybrid', tips:['k','mmr_lambda','mean_score']},
+      { id:'gen',   x:640, y:330, w:210, h:58, title:'LLM Génération', badge:'GPT', tips:['tokens_in/out','ms','fallback']},
+
+      { id:'lg2',   x:910, y:330, w:160, h:58, title:'Logs RAG', badge:'JSONL', tips:['conv_id_hash','hit_ids','latency_ms']},
+      { id:'mon',   x:1080,y:330, w:100, h:58, title:'Traces', badge:'OTel', tips:['trace_id','span_ms']},
+
+      { id:'ph',    x:240, y:500, w:180, h:58, title:'PostHog', badge:'Events/KPIs', tips:['dashboards','funnels','feedback']},
+      { id:'se',    x:470, y:500, w:180, h:58, title:'Sentry', badge:'Errors', tips:['rate','top-issues','releases']},
+      { id:'up',    x:700, y:500, w:180, h:58, title:'UptimeRobot', badge:'Uptime', tips:['ping','response_ms']},
+      { id:'al',    x:930, y:500, w:180, h:58, title:'Alerting', badge:'Slack/Email', tips:['thresholds','on-call']},
+    ];
+
+    const edges = [
+      ['user','edge'], ['edge','lg1'], ['edge','m1'],
+      ['edge','scrape'], ['scrape','export'], ['export','embed'], ['embed','pg'], ['pg','retr'], ['retr','gen'], ['gen','edge'],
+      ['scrape','ph'], ['export','ph'], ['embed','ph'], ['retr','ph'], ['gen','ph'], ['edge','ph'],
+      ['edge','se'], ['scrape','se'], ['export','se'], ['embed','se'], ['retr','se'], ['gen','se'],
+      ['edge','up'], ['al','se'], ['al','ph']
+    ];
+
+    // --- Render -------------------------------------------------------------
+    const svg = document.getElementById('nodes');
+    const edgeLayer = document.getElementById('edges');
+    const tooltip = document.getElementById('tooltip');
+    const panel = document.getElementById('panel');
+
+    function mkNode(n){
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node');
+      g.setAttribute('data-id', n.id);
+      g.setAttribute('transform',`translate(${n.x},${n.y})`);
+      const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('rx','14'); r.setAttribute('ry','14');
+      r.setAttribute('width', n.w); r.setAttribute('height', n.h);
+      g.appendChild(r);
+      const title = document.createElementNS('http://www.w3.org/2000/svg','text');
+      title.setAttribute('x', 12); title.setAttribute('y', 22); title.textContent = n.title;
+      g.appendChild(title);
+      const badge = document.createElementNS('http://www.w3.org/2000/svg','text');
+      badge.setAttribute('x', 12); badge.setAttribute('y', 40); badge.setAttribute('class','badge');
+      badge.textContent = n.badge; g.appendChild(badge);
+
+      g.addEventListener('mousemove', (e)=>{
+        tooltip.style.left = e.clientX + 'px';
+        tooltip.style.top = e.clientY + 'px';
+        tooltip.innerHTML = `<b>${n.title}</b><br><span class="muted">${n.badge}</span><br>` +
+          (n.tips?.length? n.tips.map(t=>`• ${t}`).join('<br>') : '');
+        tooltip.style.opacity = 1;
+      });
+      g.addEventListener('mouseleave', ()=> tooltip.style.opacity = 0);
+      g.addEventListener('click', ()=> showDetails(n));
+      return g;
+    }
+
+    function centerOf(n){ return { cx:n.x + n.w/2, cy:n.y + n.h/2 }; }
+
+    function mkEdge(a,b){
+      const p1 = centerOf(a), p2=centerOf(b);
+      // soft curve
+      const midX = (p1.cx + p2.cx)/2;
+      const d = `M ${p1.cx} ${p1.cy} C ${midX} ${p1.cy}, ${midX} ${p2.cy}, ${p2.cx} ${p2.cy}`;
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', d);
+      path.setAttribute('class','edge');
+      path.setAttribute('stroke','url(#gradEdge)');
+      return path;
+    }
+
+    function render(){
+      // nodes
+      nodes.forEach(n=> svg.appendChild(mkNode(n)));
+      // edges
+      edges.forEach(([a,b])=> {
+        const A = nodes.find(n=>n.id===a); const B = nodes.find(n=>n.id===b);
+        edgeLayer.appendChild(mkEdge(A,B));
+      });
+    }
+
+    function showDetails(n){
+      const html = `
+        <h2>${n.title}</h2>
+        <div class="muted">${n.badge}</div>
+        <div class="kpi">
+          <div><div class="val">${rand(32,180)} ms</div><div>Latence</div></div>
+          <div><div class="val">${rand(0,2)} %</div><div>Erreurs</div></div>
+        </div>
+        <div>
+          <div class="pill ok">KPI stable</div>
+          <div class="pill warn">Surveiller P95</div>
+        </div>
+        <ul class="list">
+          <li>Événements: ${ (n.tips||[]).slice(0,3).join(', ') || '—' }</li>
+          <li>Sentry: catégoriser erreurs, release tags</li>
+          <li>Dashboard: inclure latence, volume, err_rate</li>
+        </ul>`;
+      document.getElementById('details').innerHTML = html;
+    }
+
+    function rand(a,b){ return Math.floor(a + Math.random()*(b-a+1)); }
+
+    // Controls
+    document.getElementById('btnPulse').addEventListener('click', ()=>{
+      document.querySelectorAll('#edges path').forEach(p=> p.classList.add('pulse'));
+    });
+    document.getElementById('btnReset').addEventListener('click', ()=>{
+      document.querySelectorAll('#edges path').forEach(p=> p.classList.remove('pulse'));
+      document.getElementById('details').innerHTML = `<div class="pill ok">SLO Latence ≤ 5s</div>
+        <div class="pill warn">Feedback négatif > 25%/h</div>
+        <div class="pill err">Erreur 5xx > 2% / 5min</div>
+        <ul class="list">
+          <li>Events PostHog: request_received, ocr_done, retrieval_ok, llm_ok, reply_sent</li>
+          <li>Erreurs Sentry: ERR_OCR_TIMEOUT, ERR_PGVECTOR_UPSERT, ERR_RETRIEVAL_EMPTY, ERR_LLM_RATE_LIMIT</li>
+          <li>Alerting: Slack/Email selon seuils</li>
+        </ul>`;
+    });
+
+    // Export PNG from SVG
+    document.getElementById('btnExport').addEventListener('click', ()=>{
+      const svgEl = document.querySelector('svg');
+      const xml = new XMLSerializer().serializeToString(svgEl);
+      const svg64 = btoa(unescape(encodeURIComponent(xml)));
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement('canvas');
+        c.width = svgEl.viewBox.baseVal.width; c.height = svgEl.viewBox.baseVal.height;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = getComputedStyle(document.body).backgroundColor || '#0b0f14';
+        ctx.fillRect(0,0,c.width,c.height);
+        ctx.drawImage(img,0,0);
+        const a = document.createElement('a');
+        a.download = 'moteyi-monitoring-architecture.png';
+        a.href = c.toDataURL('image/png');
+        a.click();
+      };
+      img.src = 'data:image/svg+xml;base64,' + svg64;
+    });
+
+    render();
+  </script>
+</body>
+</html>
