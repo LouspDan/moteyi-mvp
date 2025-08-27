@@ -1,0 +1,51 @@
+RCOMANDATION
+
+🧭 Conseils d’exploitation
+
+Avant PR :
+
+--mode strict en local (assure que tes chemins & checksums sont bons).
+
+Génère report.md et survole les “(inconnu)” → compléter matière/niveau/langue.
+
+Sur PR :
+
+CI rapide doit passer (structure ok).
+
+Évite d’ajouter de lourds PDFs au repo ; préférer stockage externe ou Git LFS plus tard.
+
+Nightly RAG :
+
+Vérifie eval/report.md pour le coverage et la cohérence.
+
+Ajuste chunkers.py (taille/overlap) et retrieval.py (k, MMR, fusion BM25).
+
+🐞 Dépannage (FAQ)
+
+Q. La CI échoue avec missing_file ?
+A. Vérifie que --mode ci est bien passé (ou RAG_CHECK_MODE=ci). En local, utilise --mode strict.
+
+Q. pgvector “connection refused / auth failed” ?
+A. Vérifie PG_URL (hôte, port, DB, user, pass) et que l’extension vector est dispo. En prod Supabase, crée l’extension.
+
+Q. openai rate limit / quota ?
+A. Réduis le batch (EMBED_BATCH) et/ou programme le nightly. Évite d’indexer à chaque commit.
+
+Q. eval/report.md vide ?
+A. Assure-toi que eval/run_eval.py existe, et qu’il écrit le fichier même en cas d’échec (fallback déjà géré).
+
+🧱 Branch protection (recommandé)
+
+Exiger CI — Moteyi MVP ✅ pour merge vers main.
+
+Laisser RAG Nightly en informatif (manual/cron).
+
+🔗 Références internes
+
+rag/export_jsonl.py — export chunké depuis le catalogue (PDF → JSONL)
+
+rag/index_pgvector.py — indexation embeddings dans Postgres/pgvector
+
+rag/retrieval.py — retrieval hybride (vector + BM25 + MMR)
+
+eval/run_eval.py — harness évaluation simple (coverage, temps)

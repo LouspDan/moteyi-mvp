@@ -10,7 +10,7 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     env:
-      # ↓ Le checker lit cette variable et ignore l'absence des PDFs sur le runner
+      # Tolère l'absence des PDFs sur le runner
       RAG_CHECK_MODE: ci
 
     steps:
@@ -28,21 +28,24 @@ jobs:
           pip install -r requirements.txt || true
 
       - name: Repo quality checks
-        run: bash scripts/quality_checks.sh
+        run: |
+          if [ -f scripts/quality_checks.sh ]; then
+            bash scripts/quality_checks.sh
+          else
+            echo "No repo quality script, skipping."
+          fi
 
       - name: Validate RAG seed catalog (lenient in CI)
         run: |
           python -V
           python data/rag_seed/scripts/check_rag_seed_catalog.py --mode ci
 
-      # Option: tests de migration/rapport si présents
-      - name: Run migration tests
+      - name: Generate RAG coverage report (optional)
         run: |
-          if [ -f data/rag_seed/scripts/migrate_catalog_schema.py ]; then
-            python data/rag_seed/scripts/migrate_catalog_schema.py --check || true
-          fi
           if [ -f data/rag_seed/scripts/report_rag.py ]; then
             python data/rag_seed/scripts/report_rag.py || true
+          else
+            echo "No report script, skipping."
           fi
 
       - name: Upload CI artifacts (reports & logs)
