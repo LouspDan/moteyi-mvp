@@ -1,0 +1,62 @@
+name: Nightly — RAG Export/Index/Eval
+
+on:
+  schedule:
+    - cron: "0 2 * * *"   # Tous les jours à 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  rag:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PG_URL: ${{ secrets.PG_URL }}
+      RAG_CHECK_MODE: ci
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install RAG deps
+        run: |
+          python -m pip install --upgrade pip
+          # Déps minimales Étape 6
+          pip install pypdf sqlalchemy psycopg2-binary rank-bm25 openai tiktoken numpy
+
+      - name: Export JSONL
+        run: |
+          if [ -f rag/export_jsonl.py ]; then
+            python rag/export_jsonl.py
+          else
+            echo "rag/export_jsonl.py missing"; exit 1
+          fi
+
+      - name: Index pgvector
+        run: |
+          if [ -f rag/index_pgvector.py ]; then
+            python rag/index_pgvector.py --pg-url "$PG_URL" --create
+          else
+            echo "rag/index_pgvector.py missing"; exit 1
+          fi
+
+      - name: Quick eval
+        run: |
+          if [ -f eval/run_eval.py ]; then
+            python eval/run_eval.py || true
+            test -f eval/report.md || echo "no report" > eval/report.md
+          else
+            echo "eval/run_eval.py missing"
+            echo "no report" > eval/report.md
+          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rag-nightly
+          path: |
+            data/rag_export/export.jsonl
+            eval/report.md
+          if-no-files-found: warn

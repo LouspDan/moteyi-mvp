@@ -1,75 +1,111 @@
-# Moteyi MVP — Repo d’Accueil
+# 🚀 Moteyi MVP – Tutor IA multilingue (RDC / Afrique)
 
-🚀 **Moteyi** est le **tuteur IA multilingue** de l’écosystème Eteyelo.  
-Ce dépôt contient le code, la documentation et les assets nécessaires pour le **MVP no‑code** démonstrateur.
+[![CI – Build](https://github.com/LouspDan/moteyi-mvp/actions/workflows/ci.yml/badge.svg)](https://github.com/LouspDan/moteyi-mvp/actions/workflows/ci.yml)
+[![Quality – RAG](https://github.com/LouspDan/moteyi-mvp/actions/workflows/rag_index_eval.yml/badge.svg)](https://github.com/LouspDan/moteyi-mvp/actions/workflows/rag_index_eval.yml)
+[![Licence: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
----
-
-## 🎯 Mission de ce repo
-
-- Fournir un **MVP fonctionnel** basé sur la killer feature :
-  > *« Photo cahier → Explication vocale Lingala/Swahili/FR en ≤5s »*
-- Structurer un dépôt Git propre, versionné et documenté (Étapes 1 à 3 validées).
-- Servir de **preuve de concept** virale et crédible pour la relance Eteyelo.
+✨ **Photo du cahier → Explication vocale en 5 secondes**  
+📲 Disponible sur **WhatsApp & PWA**  
+🗣️ Langues : **Lingala, Swahili, Kikongo, Tshiluba, Français, Anglais**
 
 ---
 
-## 🔗 Lien avec l’écosystème Eteyelo
+## 🎯 Vision
 
-**Eteyelo** est la plateforme éducative IA pour l’Afrique, organisée en 3 sous‑marques principales :
+**Moteyi** est le **tuteur IA d’Eteyelo**, pensé comme un **prof particulier virtuel** accessible aux familles africaines.  
+Notre objectif : offrir un soutien scolaire de qualité, multilingue et abordable (≈ 3 €/mois).
 
-1. **Moteyi AI (B2C-first)** — Prof IA personnel (repo actuel `moteyi-mvp`)
-2. **Connect AI (B2B)** — Communication école ↔ familles (repo à venir)
-3. **Marketplace Éducatif** — Contenus & services éducatifs (repo à venir)
-
-Moteyi est **la porte d’entrée stratégique** de l’écosystème.  
-Le succès de ce MVP crée la traction pour les modules suivants (ERP, Marketplace, etc.).
+- **Quoi ?** 📚 Un assistant pédagogique IA accessible via WhatsApp.  
+- **Pourquoi ?** 🌍 Réduire les inégalités d’accès à l’éducation.  
+- **Comment ?** 🔎 OCR + RAG (programmes officiels RDC) + GPT + TTS multilingue.  
 
 ---
 
-## 🧱 Contenu du repo
+## 🧩 Architecture & Pipeline
 
-- `docs/` : résumés Étape 1 et 2, architecture, diagrammes (pipeline WOW).  
-- `config/prompts/` : prompts multilingues (LN, KK, SW, TSH, FR, EN).  
-- `make_scenarios/` : exports Make (orchestration no‑code).  
-- `data/rag_seed/` : catalogue initial de 20 docs validés (programmes RDC).  
-- `scripts/` : automatisations (init Git, CI à venir).  
-- `.env.example` : variables standardisées (WhatsApp, OpenAI, Google, ElevenLabs).  
-- `README.md` : guide d’utilisation technique.  
-- `README_accueil.md` *(ce fichier)* : vision produit et rôle stratégique.
+- [⚡ Pipeline Effet WOW](docs/diagrams/moteyi-pipeline-visual.html)  
+- [🌐 Architecture Globale](docs/diagrams/moteyi-architecture-wow.html)  
+- [🎛️ Monitoring & Observabilité](docs/diagrams/moteyi-monitoring-architecture.html)  
 
 ---
 
-## 🚀 Roadmap intégrée
+## 📌 Progression par étapes (9 étapes)
 
-### Phase MVP (repo actuel)
-- WhatsApp → Make → OCR → GPT → TTS (Alpha multilingue).  
-- 50 familles pilotes, 1 vidéo démo virale, 20 docs validés.
+| Étape | Description                                   | Statut |
+|-------|-----------------------------------------------|--------|
+| 1     | Cadre MVP & vision produit                    | ✅ Validée |
+| 2     | Option multilingue (FR + LN/KK/SW/TSH/EN)     | ✅ Validée |
+| 3     | Initialisation Git & scaffold repo            | ✅ Validée |
+| 4     | Prompts multilingues & config                 | ✅ Validée |
+| 5     | Migration RAG (Corpus Officiel RDC)           | ✅ Validée (120 docs + rapport) |
+| 6     | Indexation & Évaluation RAG                   | 🚧 En cours |
+| 7     | Orchestration WhatsApp/Make + RAG branché     | ⏳ À faire |
+| 8     | Monitoring avancé & feedback utilisateurs    | ⏳ À faire |
+| 9     | Packaging & lancement pilote (familles/écoles)| ⏳ À faire |
 
-### Phase Écosystème
-- **Connect AI** (B2B écoles) → intégration avec Moteyi.  
-- **Marketplace** → contenus éducatifs, services, paiements Mobile Money.  
-- **ERP & LMS 2.0** → alignement programmes officiels, dashboards, certification.
-
----
-
-## ✅ Conventions de travail
-
-- Branches : `main` (stable), `develop` (intégration), `feat/*`.  
-- Commits : Conventional Commits + template `.gitmessage`.  
-- CHANGELOG maintenu à chaque étape.  
-- Secrets protégés (`.env`, `config/keys/`).
+📑 Voir le [CHANGELOG](CHANGELOG.md) pour le détail de chaque jalon.  
+📘 Voir [docs/README_CI.md](docs/README_CI.md) pour l’exploitation CI/CD.
 
 ---
 
-## 📌 Prochaines étapes
+## ⚙️ Démarrage rapide
 
-1. Finaliser `.env` local et configurer Make (WhatsApp Sandbox).  
-2. Compléter `data/rag_seed/rag_seed_catalog.csv` (20 docs math + FR validés).  
-3. Réaliser 1ère démo vidéo (≤30s).  
-4. Lancer test avec 50 familles via WhatsApp.  
-5. Préparer le passage à l’Étape 4 (orchestration CI/CD + monitoring).
+```bash
+# Cloner le repo
+git clone https://github.com/LouspDan/moteyi-mvp.git
+cd moteyi-mvp
+
+# Initialiser l'environnement
+cp .env.example .env   # renseigner vos clés API
+./scripts/init_repo.sh
+
+# Vérifier le catalogue RAG
+python data/rag_seed/scripts/check_rag_seed_catalog.py --mode strict
+```
+
+📌 Variables à renseigner (`.env`) :
+- `META_WHATSAPP_TOKEN`
+- `OPENAI_API_KEY`
+- `GOOGLE_VISION_KEY`
+- `ELEVENLABS_VOICE_ID`
+- *(optionnel)* `POSTHOG_API_KEY`, `SENTRY_DSN`
 
 ---
 
-> **Mantra Eteyelo** : « Frapper fort dès le départ »  chaque commit doit contribuer à l’effet WOW et à la crédibilité du projet.
+## 🛡️ Monitoring Qualité (Étape 6)
+
+- **CI Quality Check** : `check_rag_seed_catalog.py` (structure + checksums)  
+- **Rapport RAG** : [`data/rag_seed/report.md`](data/rag_seed/report.md)  
+- **Nightly Eval** : export → index pgvector → harness évaluation  
+
+SLOs visés :
+- ⏱️ Latence P95 end-to-end ≤ 5s  
+- 📊 Feedback positif ≥ 80%  
+- 📖 Coverage@5 ≥ 0.60  
+- 🟢 Uptime webhook ≥ 99.5%  
+
+---
+
+## 🌍 Impact social
+
+- 🎒 **1000 familles pilotes** ciblées en RDC dès l’Alpha  
+- 📈 **+30% d’amélioration des notes** en 2 mois (objectif mesuré)  
+- 🤝 Communauté éducative (enseignants, parents, élèves) fédérée autour de l’IA  
+
+---
+
+## 🤝 Contribuer
+
+Les contributions sont les bienvenues 🙌  
+- Lire le guide [CONTRIBUTING.md](CONTRIBUTING.md)  
+- Respecter la checklist PR :  
+  - [ ] Tests manuels effectués  
+  - [ ] CHANGELOG mis à jour  
+  - [ ] Pas de secrets commités  
+  - [ ] Docs mises à jour  
+
+---
+
+## 📜 Licence
+
+Ce projet est sous licence MIT. Voir [LICENSE](LICENSE).
