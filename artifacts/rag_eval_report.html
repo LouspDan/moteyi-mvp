@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8">
+<title>Moteyi — RAG Eval Report</title>
+<style>
+body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;margin:24px;color:#111}
+h1{font-size:22px;margin-bottom:8px}
+h2{font-size:18px;margin-top:24px}
+table{border-collapse:collapse;width:100%;margin-top:8px}
+th,td{border:1px solid #ddd;padding:8px;font-size:14px}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;background:#eef}
+.kpi{display:flex;gap:12px;margin:12px 0;flex-wrap:wrap}
+.kpi div{background:#f7f7f7;border-radius:8px;padding:8px 12px;min-width:180px}
+.bar{height:10px;background:#e5e5e5;border-radius:5px;overflow:hidden}
+.fill{height:10px;background:#6366f1}
+.small{color:#666;font-size:12px}
+.warn{background:#fff7ed;border:1px solid #fdba74;padding:8px 12px;border-radius:8px;margin:12px 0}
+.ok{background:#ecfdf5;border:1px solid #34d399;padding:8px 12px;border-radius:8px;margin:12px 0}
+</style>
+<h1>Moteyi — Rapport d'évaluation RAG</h1>
+<div class="small">Généré automatiquement</div>
+
+<div class='ok'>Artefacts chargés avec succès.</div>
+
+<h2>KPIs globaux</h2>
+<div class="kpi">
+  <div>coverage@5: <b>0.000</b><div class="bar"><div class="fill" style="width:0.00%;"></div></div></div>
+  <div>hit@1: <b>0.000</b><div class="bar"><div class="fill" style="width:0.00%;"></div></div></div>
+  <div>mrr@5: <b>0.000</b><div class="bar"><div class="fill" style="width:0.00%;"></div></div></div>
+</div>
+
+<h2>Détails agrégés</h2>
+<table><thead><tr>
+<th>Scope</th><th>Lang</th><th>Grade</th><th>Subject</th><th>Count</th><th>hit@1</th><th>coverage@5</th><th>mrr@5</th>
+</tr></thead><tbody>
+<tr><td>global</td><td></td><td></td><td></td><td>12</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang</td><td>lingala</td><td></td><td></td><td>2</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>lingala</td><td>4e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>lingala</td><td>mathématiques</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>lingala</td><td>6e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>lingala</td><td>français</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang</td><td>kikongo</td><td></td><td></td><td>2</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>kikongo</td><td>3e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>kikongo</td><td>mathématiques</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>kikongo</td><td>5e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>kikongo</td><td>sciences</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang</td><td>swahili</td><td></td><td></td><td>2</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>swahili</td><td>5e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>swahili</td><td>mathématiques</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>swahili</td><td>6e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>swahili</td><td>histoire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang</td><td>tshiluba</td><td></td><td></td><td>2</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>tshiluba</td><td>6e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>tshiluba</td><td>sciences</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>tshiluba</td><td>5e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>tshiluba</td><td>français</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang</td><td>français</td><td></td><td></td><td>2</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>français</td><td>2e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>français</td><td>mathématiques</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>français</td><td>4e_primaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>français</td><td>sciences</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang</td><td>anglais</td><td></td><td></td><td>2</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>anglais</td><td>5e_secondaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>anglais</td><td>mathematics</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_grade</td><td>anglais</td><td>3e_secondaire</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+<tr><td>lang_subject</td><td>anglais</td><td>science</td><td></td><td>1</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+</tbody></table>
+</html>

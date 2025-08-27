@@ -1,0 +1,324 @@
+{
+  "global": {
+    "scope": "global",
+    "lang": "",
+    "grade": "",
+    "subject": "",
+    "count": 12,
+    "hit@1": 0.0,
+    "coverage@5": 0.0,
+    "mrr@5": 0.0
+  },
+  "by": [
+    {
+      "scope": "global",
+      "lang": "",
+      "grade": "",
+      "subject": "",
+      "count": 12,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang",
+      "lang": "lingala",
+      "grade": "",
+      "subject": "",
+      "count": 2,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "lingala",
+      "grade": "4e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "lingala",
+      "grade": "mathématiques",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "lingala",
+      "grade": "6e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "lingala",
+      "grade": "français",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang",
+      "lang": "kikongo",
+      "grade": "",
+      "subject": "",
+      "count": 2,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "kikongo",
+      "grade": "3e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "kikongo",
+      "grade": "mathématiques",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "kikongo",
+      "grade": "5e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "kikongo",
+      "grade": "sciences",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang",
+      "lang": "swahili",
+      "grade": "",
+      "subject": "",
+      "count": 2,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "swahili",
+      "grade": "5e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "swahili",
+      "grade": "mathématiques",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "swahili",
+      "grade": "6e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "swahili",
+      "grade": "histoire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang",
+      "lang": "tshiluba",
+      "grade": "",
+      "subject": "",
+      "count": 2,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "tshiluba",
+      "grade": "6e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "tshiluba",
+      "grade": "sciences",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "tshiluba",
+      "grade": "5e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "tshiluba",
+      "grade": "français",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang",
+      "lang": "français",
+      "grade": "",
+      "subject": "",
+      "count": 2,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "français",
+      "grade": "2e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "français",
+      "grade": "mathématiques",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "français",
+      "grade": "4e_primaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "français",
+      "grade": "sciences",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang",
+      "lang": "anglais",
+      "grade": "",
+      "subject": "",
+      "count": 2,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "anglais",
+      "grade": "5e_secondaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "anglais",
+      "grade": "mathematics",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_grade",
+      "lang": "anglais",
+      "grade": "3e_secondaire",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    },
+    {
+      "scope": "lang_subject",
+      "lang": "anglais",
+      "grade": "science",
+      "subject": "",
+      "count": 1,
+      "hit@1": 0.0,
+      "coverage@5": 0.0,
+      "mrr@5": 0.0
+    }
+  ]
+}
