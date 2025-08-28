@@ -12,6 +12,13 @@ rag_eval.py — Étape B.7
 import argparse, json, os, csv, collections, statistics, urllib.request
 from typing import List, Dict
 
+def _base_doc_id(s: str) -> str:
+    try:
+        return s.split("#", 1)[0]
+    except Exception:
+        return s or ""
+
+
 def load_retriever_config():
     with open("data/index/retriever_config.json", "r", encoding="utf-8") as f:
         return json.load(f)
