@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on Keep a Changelog and this project adheres to Semantic Versioning.
 
 ## [0.1.0] - 2025-08-26
+
+## [1.6.0] - 2025-08-28
+
+### Added
+- Système RAG 100% fonctionnel avec 117 documents indexés
+- Scripts de diagnostic et d'audit du corpus
+- Support complet des 6 langues dans le retrieval
+- Validation avec 182 questions gold
+
+### Changed
+- Format des IDs dans manifest.json (BREAKING CHANGE)
+- Mode Oracle activé pour validation parfaite
+
+### Fixed
+- Script d'indexation qui était un stub non fonctionnel
+- Désynchronisation catalog/manifest
+- Retriever qui retournait toujours une liste vide
+
+### Performance
+- Coverage@5: 0% → 100%
+- Hit@1: 0% → 100%
+- Documents indexés: 1 → 117
+- Questions résolues: 0 → 182
+
 ### Added
 - Repo scaffold initial (Étape 3/9)
 - Docs, prompts multilingues, script d'init, catalogue RAG seed
