@@ -1,221 +1,284 @@
 # tools/corpus_audit.py
+# -*- coding: utf-8 -*-
+"""
+Audit du corpus RAG Moteyi (v2)
+- Compare la réalité disque (PDFs) au manifest et au catalog
+- Matching robuste par basename (ex: Guide.pdf)
+- Tolère catalog: 'file' OU 'file_path' OU 'path'
+- Tolère manifest: list[doc] OU dict{'docs':[...]} OU dict{'documents':[...]}
+- Produit:
+    * reports/corpus_audit_report.json
+    * reports/files_to_index_priority.csv
+Affichage console synthétique (FR).
+"""
+
+from __future__ import annotations
 import json
 import csv
 import os
+import re
 from pathlib import Path
 from collections import defaultdict
+from typing import Dict, List, Set, Tuple
 
-def audit_corpus():
+CATALOG = Path("data/rag_seed/rag_seed_catalog.csv")
+MANIFEST = Path("data/index/manifest.json")
+DATA_DIR = Path("data/rag_seed")
+REPORTS_DIR = Path("reports")
+
+FILE_COL_CANDIDATES = ["file", "file_path", "path"]
+
+def norm_path(p: str) -> str:
+    return re.sub(r"[\\/]+", "/", (p or "").strip())
+
+def _load_manifest_docs() -> List[dict]:
+    if not MANIFEST.exists():
+        raise FileNotFoundError(f"Fichier manifest introuvable: {MANIFEST}")
+    try:
+        data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    except Exception as e:
+        raise RuntimeError(f"Manifest illisible: {e}")
+
+    # Formats tolérés:
+    # 1) list[ {id, file, ...}, ... ]
+    # 2) {"docs":[...]} ou {"documents":[...]}
+    if isinstance(data, list):
+        return data
+    if isinstance(data, dict):
+        if isinstance(data.get("docs"), list):
+            return data["docs"]
+        if isinstance(data.get("documents"), list):
+            return data["documents"]
+    raise ValueError("Format manifest non reconnu (list ou dict{'docs'|'documents':[...]})")
+
+def load_manifest_basenames() -> Tuple[Set[str], Dict[str, dict]]:
+    docs = _load_manifest_docs()
+    names: Set[str] = set()
+    by_name: Dict[str, dict] = {}
+    for d in docs:
+        # Contrat actuel: id == filename.pdf (après alignement)
+        # On garde file comme secours
+        fid = str(d.get("id", "")).strip()
+        ffile = norm_path(str(d.get("file", "")).strip())
+
+        base = Path(fid or Path(ffile).name).name  # basename sûr
+        if not base:
+            # Document mal formé → ignorer
+            continue
+        names.add(base)
+        by_name[base] = d
+    return names, by_name
+
+def _detect_catalog_file_col(headers_lower: Set[str]) -> str:
+    for c in FILE_COL_CANDIDATES:
+        if c in headers_lower:
+            return c
+    return ""
+
+def load_catalog_basenames() -> Tuple[Set[str], Dict[str, dict]]:
+    if not CATALOG.exists():
+        raise FileNotFoundError(f"Catalog introuvable: {CATALOG}")
+
+    basenames: Set[str] = set()
+    rows_by_base: Dict[str, dict] = {}
+
+    with CATALOG.open(encoding="utf-8") as f:
+        r = csv.DictReader(f)
+        headers = [h for h in (r.fieldnames or [])]
+        headers_lower = {h.lower() for h in headers}
+        file_col = _detect_catalog_file_col(headers_lower)
+        id_col = "id" if "id" in headers_lower else ""
+
+        for row in r:
+            row_lower = {k.lower(): (v or "").strip() for k, v in row.items()}
+            # priorité à id (qui = filename.pdf après alignement); sinon chemin
+            base = ""
+            if id_col and row_lower.get("id"):
+                base = Path(row_lower["id"]).name
+            elif file_col and row_lower.get(file_col):
+                base = Path(norm_path(row_lower[file_col])).name
+
+            if base:
+                basenames.add(base)
+                rows_by_base[base] = row  # conserve version originale pour meta éventuelle
+
+    return basenames, rows_by_base
+
+def scan_fs_basenames() -> Tuple[Set[str], Dict[str, str]]:
+    names: Set[str] = set()
+    # map basename -> chemin relatif affichable (pour cat par chemin si besoin)
+    relmap: Dict[str, str] = {}
+    for pdf in DATA_DIR.rglob("*.pdf"):
+        rel = norm_path(str(pdf.relative_to(Path("."))))
+        base = Path(rel).name
+        names.add(base)
+        # on garde le 1er chemin rencontré pour ce basename (suffisant pour l'audit)
+        relmap.setdefault(base, rel)
+    return names, relmap
+
+def derive_category_from_path(rel_path: str) -> str:
     """
-    Compare manifest.json vs rag_seed_catalog.csv
-    pour identifier les documents non indexés
+    Essaie d'extraire une catégorie lisible depuis le chemin.
+    Exemple: data/rag_seed/primaire/langues_nationales/swahili/file.pdf
+             -> "primaire/langues_nationales"
     """
+    parts = norm_path(rel_path).split("/")
+    try:
+        i = parts.index("rag_seed")
+        # on prend 1 ou 2 segments après rag_seed selon la profondeur
+        tail = parts[i + 1 : i + 3]
+        return "/".join(tail) if tail else "root"
+    except ValueError:
+        return "root"
+
+def audit_corpus() -> dict:
     print("🔍 AUDIT DU CORPUS RAG - MOTEYI MVP")
-    print("="*50)
-    
-    # 1. Charger le manifest depuis le BON chemin
-    manifest_path = Path('data/index/manifest.json')
-    if not manifest_path.exists():
-        print(f"❌ Fichier manifest.json introuvable dans {manifest_path}")
-        print("⚠️  Vérifiez que l'indexation a bien été lancée")
-        return None
-    
-    with open(manifest_path, 'r', encoding='utf-8') as f:
-        manifest = json.load(f)
-    
-    # 2. Charger le catalog CSV
-    catalog_path = Path('data/rag_seed/rag_seed_catalog.csv')
-    catalog_docs = {}
-    
-    with open(catalog_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            if row.get('file_path'):
-                # Normaliser le chemin pour comparaison
-                file_path = row['file_path'].replace('\\', '/')
-                catalog_docs[file_path] = {
-                    'id': row.get('id', ''),
-                    'title': row.get('title', ''),
-                    'grade_level': row.get('grade_level', ''),
-                    'subject': row.get('subject', ''),
-                    'language': row.get('language', '')
-                }
-    
-    # 3. Analyser le manifest - CORRECTION ICI
-    manifest_docs = {}
-    
-    # Le manifest peut être soit une liste directe, soit un dict avec 'documents'
-    if isinstance(manifest, list):
-        documents = manifest
-    elif isinstance(manifest, dict) and 'documents' in manifest:
-        documents = manifest['documents']
-    else:
-        print("⚠️  Format du manifest non reconnu")
-        documents = []
-    
-    for doc in documents:
-        file_path = doc.get('file', '').replace('\\', '/')
-        manifest_docs[file_path] = {
-            'id': doc.get('id', ''),
-            'chunks': doc.get('chunks', 0) if 'chunks' in doc else len(doc.get('content', []))
+    print("=" * 50)
+
+    # Chargements
+    fs_names, fs_relmap = scan_fs_basenames()
+    cat_names, cat_rows = load_catalog_basenames()
+    man_names, man_docs = load_manifest_basenames()
+
+    print(f"\n📁 PDFs trouvés sur disque : {len(fs_names)}")
+    print(f"📋 Documents dans catalog  : {len(cat_names)}")
+    print(f"📄 Documents dans manifest : {len(man_names)}")
+
+    # Matching par basename
+    indexed = fs_names & man_names              # réellement sur disque ET déclarés dans manifest
+    not_indexed = fs_names - man_names          # sur disque mais non déclarés dans manifest (orphelins indexation)
+    missing_on_disk = man_names - fs_names      # manifest déclare, mais le PDF n'est pas présent sur disque
+
+    # Documents présents dans catalog mais pas manifest (doivent être indexés)
+    in_catalog_not_in_manifest = cat_names - man_names
+    # Documents présents dans manifest mais pas catalog (doivent être ajoutés au catalog)
+    in_manifest_not_in_catalog = man_names - cat_names
+
+    coverage_rate = (len(indexed) / len(fs_names) * 100) if fs_names else 0.0
+    missing_count = len(in_catalog_not_in_manifest) + len(not_indexed)
+
+    # Stats par catégorie (via chemins FS quand dispo; sinon "root")
+    categories = defaultdict(lambda: {"total": 0, "indexed": 0})
+    for base in fs_names:
+        rel = fs_relmap.get(base, "")
+        cat = derive_category_from_path(rel)
+        categories[cat]["total"] += 1
+        if base in man_names:
+            categories[cat]["indexed"] += 1
+
+    # Rapport JSON
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    report_path = REPORTS_DIR / "corpus_audit_report.json"
+    priority_path = REPORTS_DIR / "files_to_index_priority.csv"
+
+    # Nettoyage catégories pour le JSON
+    clean_categories = {
+        cat: {
+            "total": stats["total"],
+            "indexed": stats["indexed"],
+            "coverage": (stats["indexed"] / stats["total"] * 100) if stats["total"] else 0.0,
         }
-    
-    # 4. Scanner les PDFs réellement présents sur disque
-    pdf_files_on_disk = set()
-    rag_seed_dir = Path('data/rag_seed')
-    for pdf_file in rag_seed_dir.rglob('*.pdf'):
-        relative_path = str(pdf_file.relative_to(Path('.'))).replace('\\', '/')
-        pdf_files_on_disk.add(relative_path)
-    
-    print(f"\n📁 PDFs trouvés sur disque : {len(pdf_files_on_disk)}")
-    print(f"📋 Documents dans catalog  : {len(catalog_docs)}")
-    print(f"📄 Documents dans manifest : {len(manifest_docs)}")
-    
-    # 5. Analyser les différences
-    catalog_files = set(catalog_docs.keys())
-    manifest_files = set(manifest_docs.keys())
-    
-    # Documents dans catalog mais pas dans manifest (NON INDEXÉS)
-    missing_in_manifest = catalog_files - manifest_files
-    
-    # Documents dans manifest mais pas dans catalog
-    missing_in_catalog = manifest_files - catalog_files
-    
-    # PDFs sur disque mais ni dans catalog ni dans manifest (ORPHELINS)
-    orphan_pdfs = pdf_files_on_disk - catalog_files - manifest_files
-    
-    # 6. Analyser par catégorie
-    categories_stats = defaultdict(lambda: {'total': 0, 'indexed': 0, 'files': []})
-    
-    for file_path in pdf_files_on_disk:
-        # Extraire la catégorie du chemin
-        parts = file_path.split('/')
-        if len(parts) > 3:
-            category = parts[3]  # Ajusté pour data/rag_seed/[category]/
-        else:
-            category = 'root'
-        
-        categories_stats[category]['total'] += 1
-        categories_stats[category]['files'].append(file_path)
-        
-        if file_path in manifest_files:
-            categories_stats[category]['indexed'] += 1
-    
-    # 7. Générer le rapport
-    report = {
-        'summary': {
-            'total_pdfs_on_disk': len(pdf_files_on_disk),
-            'total_in_catalog': len(catalog_files),
-            'total_in_manifest': len(manifest_files),
-            'coverage_rate': (len(manifest_files) / len(pdf_files_on_disk) * 100) if pdf_files_on_disk else 0,
-            'missing_count': len(missing_in_manifest) + len(orphan_pdfs)
-        },
-        'missing_in_manifest': sorted(list(missing_in_manifest)),
-        'orphan_pdfs': sorted(list(orphan_pdfs)),
-        'missing_in_catalog': sorted(list(missing_in_catalog)),
-        'categories': dict(categories_stats),
-        'recommendations': []
+        for cat, stats in categories.items()
     }
-    
-    # 8. Ajouter des recommandations
-    if report['missing_in_manifest']:
-        report['recommendations'].append(
-            f"🔴 URGENT: {len(missing_in_manifest)} documents du catalog ne sont pas indexés"
+
+    report = {
+        "summary": {
+            "total_pdfs_on_disk": len(fs_names),
+            "total_in_catalog": len(cat_names),
+            "total_in_manifest": len(man_names),
+            "indexed_count": len(indexed),
+            "coverage_rate": coverage_rate,
+            "missing_count": missing_count,
+        },
+        "missing_in_manifest": sorted(list(in_catalog_not_in_manifest)),  # à indexer
+        "orphan_on_disk_not_in_manifest": sorted(list(not_indexed)),      # sur disque mais pas manifest
+        "missing_on_disk_from_manifest": sorted(list(missing_on_disk)),   # manifest déclare, pas sur disque
+        "missing_in_catalog": sorted(list(in_manifest_not_in_catalog)),   # à ajouter au catalog
+        "categories": clean_categories,
+        "recommendations": [],
+    }
+
+    # Recommandations simples
+    if in_catalog_not_in_manifest:
+        report["recommendations"].append(
+            f"🔴 {len(in_catalog_not_in_manifest)} docs du catalog non indexés (à ajouter au manifest)."
         )
-    
-    if report['orphan_pdfs']:
-        report['recommendations'].append(
-            f"⚠️  {len(orphan_pdfs)} PDFs non référencés trouvés - À ajouter au catalog"
+    if not_indexed:
+        report["recommendations"].append(
+            f"⚠️ {len(not_indexed)} PDFs présents sur disque mais absents du manifest (orphelins indexation)."
         )
-    
-    if report['summary']['coverage_rate'] < 50:
-        report['recommendations'].append(
-            "💡 Taux de couverture < 50% - Relancer l'indexation complète recommandée"
+    if in_manifest_not_in_catalog:
+        report["recommendations"].append(
+            f"🟠 {len(in_manifest_not_in_catalog)} docs du manifest non présents dans le catalog (compléter le CSV)."
         )
-    
-    # 9. Sauvegarder le rapport
-    os.makedirs('reports', exist_ok=True)
-    report_path = Path('reports/corpus_audit_report.json')
-    
-    # Nettoyer les listes de fichiers pour le JSON
-    clean_categories = {}
-    for cat, stats in categories_stats.items():
-        clean_categories[cat] = {
-            'total': stats['total'],
-            'indexed': stats['indexed'],
-            'coverage': (stats['indexed'] / stats['total'] * 100) if stats['total'] > 0 else 0
-        }
-    report['categories'] = clean_categories
-    
-    with open(report_path, 'w', encoding='utf-8') as f:
-        json.dump(report, f, indent=2, ensure_ascii=False)
-    
-    # 10. Afficher le résumé
+    if coverage_rate < 80:
+        report["recommendations"].append(
+            "💡 Couverture < 80% — lancer une réindexation et synchroniser manifest/catalog."
+        )
+
+    # Sauvegardes
+    report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    with priority_path.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["basename", "status", "hint"])
+        # Priorité 1: catalog → pas manifest
+        for base in sorted(in_catalog_not_in_manifest)[:100]:
+            hint = fs_relmap.get(base, "")
+            w.writerow([base, "in_catalog_not_in_manifest", hint])
+        # Priorité 2: sur disque → pas manifest
+        for base in sorted(not_indexed)[:100]:
+            hint = fs_relmap.get(base, "")
+            w.writerow([base, "on_disk_not_in_manifest", hint])
+
+    # Affichage console
     print("\n📊 RÉSUMÉ DE L'AUDIT")
-    print("-"*50)
-    print(f"📁 PDFs trouvés sur disque    : {report['summary']['total_pdfs_on_disk']}")
+    print("-" * 50)
+    print(f"📁 PDFs trouvés sur disque     : {report['summary']['total_pdfs_on_disk']}")
     print(f"📋 Documents dans le catalog   : {report['summary']['total_in_catalog']}")
-    print(f"✅ Documents indexés (manifest): {report['summary']['total_in_manifest']}")
+    print(f"✅ Documents indexés (manifest): {report['summary']['indexed_count']}")
     print(f"📈 Taux de couverture          : {report['summary']['coverage_rate']:.1f}%")
     print(f"❌ Documents non indexés       : {report['summary']['missing_count']}")
-    
+
     print("\n📂 RÉPARTITION PAR CATÉGORIE")
-    print("-"*50)
-    for cat, stats in categories_stats.items():
-        coverage = (stats['indexed'] / stats['total'] * 100) if stats['total'] > 0 else 0
-        status = "✅" if coverage > 80 else "⚠️" if coverage > 50 else "❌"
-        print(f"{status} {cat:20s}: {stats['indexed']}/{stats['total']} ({coverage:.0f}%)")
-    
-    # Afficher quelques exemples de fichiers non indexés
-    if missing_in_manifest:
-        print("\n❌ EXEMPLES DE FICHIERS NON INDEXÉS (max 5)")
-        print("-"*50)
-        for file_path in list(missing_in_manifest)[:5]:
-            print(f"  - {file_path}")
-    
-    if orphan_pdfs:
-        print("\n⚠️  EXEMPLES DE PDFs ORPHELINS (max 5)")
-        print("-"*50)
-        for file_path in list(orphan_pdfs)[:5]:
-            print(f"  - {file_path}")
-    
-    if report['recommendations']:
+    print("-" * 50)
+    for cat, stats in sorted(clean_categories.items()):
+        cov = stats["coverage"]
+        status = "✅" if cov >= 80 else ("⚠️" if cov >= 50 else "❌")
+        print(f"{status} {cat:25s}: {stats['indexed']}/{stats['total']} ({cov:.0f}%)")
+
+    if in_catalog_not_in_manifest:
+        print("\n❌ EXEMPLES — Catalog non indexés (max 5)")
+        print("-" * 50)
+        for base in list(sorted(in_catalog_not_in_manifest))[:5]:
+            print(f"  - {base}")
+
+    if not_indexed:
+        print("\n⚠️ EXEMPLES — Sur disque mais pas manifest (max 5)")
+        print("-" * 50)
+        for base in list(sorted(not_indexed))[:5]:
+            print(f"  - {base}")
+
+    if in_manifest_not_in_catalog:
+        print("\n🟠 EXEMPLES — Manifest non présents dans catalog (max 5)")
+        print("-" * 50)
+        for base in list(sorted(in_manifest_not_in_catalog))[:5]:
+            print(f"  - {base}")
+
+    if report["recommendations"]:
         print("\n💡 RECOMMANDATIONS")
-        print("-"*50)
-        for rec in report['recommendations']:
+        print("-" * 50)
+        for rec in report["recommendations"]:
             print(rec)
-    
-    print(f"\n📄 Rapport détaillé sauvé dans : {report_path}")
-    
-    # 11. Créer un CSV des fichiers à indexer en priorité
-    priority_files_path = Path('reports/files_to_index_priority.csv')
-    with open(priority_files_path, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(['file_path', 'status', 'category'])
-        
-        # D'abord les fichiers du catalog non indexés
-        for file_path in sorted(missing_in_manifest)[:50]:  # Top 50
-            parts = file_path.split('/')
-            category = parts[3] if len(parts) > 3 else 'root'
-            writer.writerow([file_path, 'in_catalog_not_indexed', category])
-        
-        # Puis les PDFs orphelins
-        for file_path in sorted(orphan_pdfs)[:20]:  # Top 20
-            parts = file_path.split('/')
-            category = parts[3] if len(parts) > 3 else 'root'
-            writer.writerow([file_path, 'orphan_pdf', category])
-    
-    print(f"📋 Liste prioritaire créée     : {priority_files_path}")
-    
+
+    print(f"\n📄 Rapport détaillé : {report_path}")
+    print(f"📋 Liste prioritaire: {priority_path}")
+
     return report
 
 if __name__ == "__main__":
-    report = audit_corpus()
-    
-    if report and report['summary']['coverage_rate'] < 10:
-        print("\n🚨 ALERTE CRITIQUE : Taux de couverture < 10% !")
-        print("   Le RAG ne peut pas fonctionner correctement.")
-        print("   Action immédiate requise : relancer l'indexation complète")
-        
-        print("\n🔥 COMMANDE SUGGÉRÉE POUR RÉINDEXER :")
-        print("   python scripts/rag_index.py")
+    try:
+        audit_corpus()
+    except Exception as e:
+        print(f"❌ ERREUR: {e}")
+        raise

@@ -1,0 +1,48 @@
+name: RAG Catalog Validate
+
+on:
+  pull_request:
+    paths:
+      - "data/rag_seed/**"
+      - "data/index/**"
+      - "scripts/validate_rag.py"
+      - ".github/workflows/**"
+  push:
+    branches: [ main ]
+    paths:
+      - "data/rag_seed/**"
+      - "data/index/**"
+      - "scripts/validate_rag.py"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Show tree (debug)
+        run: |
+          ls -la
+          find data -maxdepth 3 -type f | head -n 50 || true
+
+      - name: Validate RAG seed catalog (CI mode)
+        env:
+          CI: "true"
+          RAG_CHECK_MODE: "ci"
+        run: |
+          python scripts/validate_rag.py
+
+      - name: Upload catalog meta
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog_meta
+          path: artifacts/catalog_meta.json
+          if-no-files-found: warn

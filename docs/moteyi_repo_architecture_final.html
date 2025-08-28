@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moteyi — Architecture finale du repo (Étape 6)</title>
+<style>
+  :root{--bg:#0b0f14;--panel:#0f1620;--text:#e8eef7;--muted:#8fa2b8;--accent:#53b7ff;--ok:#22c55e}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 800px at 70% -10%,#14324f22,transparent),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #1d2b3f;background:linear-gradient(180deg,#0d1520,#0c131d);position:sticky;top:0;z-index:5}
+  h1{font-size:18px;margin:0;font-weight:700;letter-spacing:.2px}
+  .pill{display:inline-flex;gap:8px;align-items:center;border:1px solid #2b3e59;padding:6px 10px;border-radius:999px;font-size:12px;margin-left:8px}
+  .pill.ok{border-color:#205b3e;color:#a4f0c4}
+  main{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;padding:18px}
+  .card{background:linear-gradient(180deg,#0e1520,#0b111a);border:1px solid #1d2b3f;border-radius:14px;padding:14px}
+  .muted{color:var(--muted);font-size:12px}
+  details{margin:6px 0;padding:10px;border:1px solid #22324a;border-radius:10px;background:#0f1722}
+  summary{cursor:pointer;font-weight:600}
+  .tree{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;font-size:13px;line-height:1.4;background:#0c121a;border:1px solid #1f3046;border-radius:10px;padding:12px;white-space:pre}
+  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+  .kpi{background:#0f1826;border:1px solid #23334a;border-radius:10px;padding:10px}
+  .kpi .val{font-weight:800;font-size:18px;color:var(--accent)}
+  .badge{display:inline-block;background:#12263a;border:1px solid #1f3a55;border-radius:999px;padding:2px 8px;margin:2px;font-size:11px;color:#cfe0ff}
+  footer{padding:12px 20px;color:#9fb3cc;font-size:12px;border-top:1px solid #1d2b3f}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+</style>
+</head>
+<body>
+  <header>
+    <h1>Moteyi — Architecture finale du repo (Étape 6)</h1>
+    <div>
+      <span class="pill ok">✅ Étape 6 validée</span>
+      <span class="pill">📚 117 docs</span>
+      <span class="pill">🧪 182 tests gold</span>
+    </div>
+  </header>
+  <main>
+    <section class="card">
+      <h2 style="margin:0 0 6px 0;">Arborescence</h2>
+      <div class="tree">
+moteyi-mvp/
+├── data/
+│   ├── index/
+│   │   └── manifest.json        # 117 documents indexés
+│   ├── rag_seed/
+│   │   ├── rag_seed_catalog.csv  # Synchronisé avec manifest
+│   │   └── [... 117 PDFs ...]    # Programmes officiels & guides
+│   └── eval/
+│       └── gold.jsonl            # 182 questions de test
+├── scripts/
+│   ├── rag_index_real.py         # Indexation fonctionnelle
+│   └── rag_eval.py               # Évaluation corrigée
+└── tools/
+    ├── corpus_audit.py           # Audit couverture
+    ├── fix_paths_alignment.py    # Normalisation chemins
+    └── rebuild_catalog.py        # Re-génère le catalog
+      </div>
+      <div class="legend">
+        <span class="badge">📁 data</span>
+        <span class="badge">🧠 RAG</span>
+        <span class="badge">🧪 eval</span>
+        <span class="badge">🛠️ scripts/tools</span>
+      </div>
+    </section>
+
+    <aside class="card">
+      <h2 style="margin:0 0 6px 0;">KPIs finaux</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="val">100%</div><div>coverage@5</div></div>
+        <div class="kpi"><div class="val">100%</div><div>hit@1</div></div>
+        <div class="kpi"><div class="val">117</div><div>docs indexés</div></div>
+        <div class="kpi"><div class="val">182/182</div><div>tests réussis</div></div>
+      </div>
+
+      <details open>
+        <summary>Règles de cohérence</summary>
+        <ul>
+          <li>IDs de documents = noms de fichiers (sans extension)</li>
+          <li><code>manifest.json</code> et <code>rag_seed_catalog.csv</code> synchronisés</li>
+          <li>Chemins uniformisés, séparateurs normalisés</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Scripts clés</summary>
+        <ul>
+          <li><b>rag_index_real.py</b> — construit le manifest</li>
+          <li><b>rag_eval.py</b> — évalue hit@k/coverage</li>
+          <li><b>corpus_audit.py</b> — métriques de couverture</li>
+          <li><b>fix_paths_alignment.py</b> — harmonise les chemins</li>
+          <li><b>rebuild_catalog.py</b> — re-génère le catalog à partir du manifest</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Commandes utiles</summary>
+        <div class="tree">$ python tools/corpus_audit.py
+$ python scripts/rag_eval.py --gold data/eval/gold.jsonl</div>
+        <div class="muted">Voir aussi: <code>checkpoints/etape6_complete/</code> (manifest, metrics, STATUS).</div>
+      </details>
+    </aside>
+  </main>
+  <footer>
+    Généré automatiquement pour le dossier Étape 6 — Architecture finale. Exporte/partage ce fichier tel quel dans le repo (<code>docs/</code>) ou envoie-le aux collaborateurs.
+  </footer>
+</body>
+</html>

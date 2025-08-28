@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: moteyi-validate
+        name: Moteyi RAG validate (dual-mode)
+        entry: python scripts/hook_validate.py
+        language: system
+        pass_filenames: false
+        files: ^(data/rag_seed/|data/index/|scripts/validate_rag\.py|scripts/hook_validate\.py)

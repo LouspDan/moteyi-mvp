@@ -3,243 +3,125 @@
     "total_pdfs_on_disk": 117,
     "total_in_catalog": 117,
     "total_in_manifest": 117,
+    "indexed_count": 117,
     "coverage_rate": 100.0,
-    "missing_count": 117
+    "missing_count": 0
   },
   "missing_in_manifest": [],
-  "orphan_pdfs": [
-    "data/rag_seed/autres/CRS/Cahier-de-lapprenant-_-Francais-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/Manuel-de-lapprenant-_-Francais-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/lingala/Cahier-de-lapprenant-_-Lingala-CRS-N1.pdf",
-    "data/rag_seed/autres/CRS/lingala/Cahier-de-lapprenant-_-Lingala-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/lingala/Guide-de-leducateur-_-Lingala-CRS-N1.pdf",
-    "data/rag_seed/autres/CRS/lingala/Guide-de-leducateur-_-Lingala-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/lingala/Livret-de-lapprenant-_-Lingala-CRS-N1.pdf",
-    "data/rag_seed/autres/CRS/lingala/Manuel-de-lapprenant-_-Lingala-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/swahili/Cahier-de-lapprenant-_-Kiswahili-CRS-N1.pdf",
-    "data/rag_seed/autres/CRS/swahili/Cahier-de-lapprenant-_-Kiswahili-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/swahili/Guide-de-leducateur-_-Kiswahili-CRS-N1.pdf",
-    "data/rag_seed/autres/CRS/swahili/Guide-de-leducateur-_-Kiswahili-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/swahili/Livret-de-lapprenant-_-Kiswahili-CRS-N1.pdf",
-    "data/rag_seed/autres/CRS/swahili/Manuel-de-lapprenant-_-Kiswahili-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/tshiluba/Cahier-de-lapprenant-_-Ciluba-CRS-N1.pdf",
-    "data/rag_seed/autres/CRS/tshiluba/Cahier-de-lapprenant-_-Ciluba-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/tshiluba/Guide-de-leducateur-_-Ciluba-CRS-N2.pdf",
-    "data/rag_seed/autres/CRS/tshiluba/Manuel-de-lapprenant-_-Ciluba-CRS-N2.pdf",
-    "data/rag_seed/autres/administration/ARRETE-DE-CREATION-HPR.pdf",
-    "data/rag_seed/autres/administration/ARRETE-DE-CREATION-IFME.pdf",
-    "data/rag_seed/autres/administration/ARRETE-DE-MISE-EN-OEUVRE-HPR.pdf",
-    "data/rag_seed/autres/administration/Normes-architecturales-et-de-fonctionnement-dun-resume_rapport_final_2017.pdf",
-    "data/rag_seed/autres/administration/RECUEIL-DE-NORMES-DE-LENSEIGNEMENT-PRESCOLAIRE-EN-REPUBLIQUE-DEMOCRATIQUE-DU-CONGO-06.06.2022-FI.pdf",
-    "data/rag_seed/autres/divers/CALENDRIER-SCOLAIRE-2024-2025-REAMENAGE-EN-PDF.pdf",
-    "data/rag_seed/autres/divers/CURRICULUM-LIVRABLE-SECRETARIAT-ADMINISTRATION.pdf",
-    "data/rag_seed/autres/divers/Curriculum-Commerciale-et-Gestion.pdf",
-    "data/rag_seed/autres/divers/Manuel-de-leleve_Alphabetisation-fonctionnelle-2.pdf",
-    "data/rag_seed/autres/divers/Manuel-de-leleve_Alphabetisation-initiale-1.pdf",
-    "data/rag_seed/autres/divers/POLITIQUE-MANUELS-SCOLAIRES-VALIDEE-28.02.2017.pdf",
-    "data/rag_seed/autres/divers/PROGRAMME-HPR.pdf",
-    "data/rag_seed/autres/divers/PROGRAMME-IFME-VF.pdf",
-    "data/rag_seed/autres/education_civique/primaire/EDUCATION-CIVIQUE-ET-MORALE-PRIMAIRE.pdf",
-    "data/rag_seed/autres/education_civique/secondaire/EDUCATION-CIVIQUE-ET-MORALE-SECONDAIRE.pdf",
-    "data/rag_seed/autres/geographie/GEOGRAPHIE.pdf",
-    "data/rag_seed/autres/histoire/HISTOIRE.pdf",
-    "data/rag_seed/autres/informatique/primaire/INFORMATIQUE-ENSEIGEMENT-PRIMAIRE.pdf",
-    "data/rag_seed/autres/informatique/secondaire/INFORMATIQUE-ENSEIGNEMENT-SECONDAIRE.pdf",
-    "data/rag_seed/autres/techniques/electricite/ELECTRICITE.pdf",
-    "data/rag_seed/autres/techniques/electronique/ELECTRONIQUE.pdf",
-    "data/rag_seed/autres/techniques/petrochimie/PETROCHIMIE.pdf",
-    "data/rag_seed/guides_pedagogiques/Guide-de-leducateur-_-Alphabetisation-fonctionnelle.pdf",
-    "data/rag_seed/guides_pedagogiques/Guide-de-leducateur-_-Alphabetisation-initiale.pdf",
-    "data/rag_seed/guides_pedagogiques/Guide-de-leducateur-_-Francais-CRS-N2.pdf",
-    "data/rag_seed/guides_pedagogiques/Guide-de-leducateur-_-Francais-oral-CRS-N1.pdf",
-    "data/rag_seed/guides_pedagogiques/formation/IFADEM_RDC-Kinshasa-Livret_2-Competences-Production-Orales.pdf",
-    "data/rag_seed/guides_pedagogiques/formation/IFADEM_RDC-Kinshasa-Livret_3-Competences-Comprehension-Production-Ecrites.pdf",
-    "data/rag_seed/guides_pedagogiques/formation/IFADEM_RDC-Kinshasa-Livret_4-Nouveau-Programme-Enseignement-Primaire.pdf",
-    "data/rag_seed/guides_pedagogiques/formation/IFADEM_RDC-Kinshasa-Livret_No-2_BILINGUISME.pdf",
-    "data/rag_seed/guides_pedagogiques/formation/IFADEM_RDC-Kinshasa-livret_No-1_Enseigner-la-Langue-Nationale.pdf",
-    "data/rag_seed/guides_pedagogiques/psychopedagogie/PSYCHOPEDAGOGIE.pdf",
-    "data/rag_seed/primaire/francais/Cahier-de-leleve-_-3e-Annee-Francais.pdf",
-    "data/rag_seed/primaire/francais/Guide-de-lenseignant-_1e-Annee-Francais-oral.pdf",
-    "data/rag_seed/primaire/francais/Guide-de-lenseignant-_2e-Annee-Francais-oral.pdf",
-    "data/rag_seed/primaire/francais/Guide-de-lenseignant-_3e-Annee-Francais.pdf",
-    "data/rag_seed/primaire/francais/Manuel-de-leleve-_-3e-Annee-Francais.pdf",
-    "data/rag_seed/primaire/langues_nationales/lingala/Cahier-de-leleve-_-1e-Annee-Lingala.pdf",
-    "data/rag_seed/primaire/langues_nationales/lingala/Cahier-de-leleve-_-2e-Annee-Lingala.pdf",
-    "data/rag_seed/primaire/langues_nationales/lingala/Cahier-de-leleve-_-3e-Annee-Lingala.pdf",
-    "data/rag_seed/primaire/langues_nationales/lingala/Guide-de-lenseignant-_1e-Annee-Lingala.pdf",
-    "data/rag_seed/primaire/langues_nationales/lingala/Guide-de-lenseignant-_2e-Annee-Lingala.pdf",
-    "data/rag_seed/primaire/langues_nationales/lingala/Guide-de-lenseignant-_3e-Annee-Lingala.pdf",
-    "data/rag_seed/primaire/langues_nationales/lingala/Manuel-de-leleve-_-1e-Annee-Lingala.pdf",
-    "data/rag_seed/primaire/langues_nationales/lingala/Manuel-de-leleve-_-2e-Annee-Lingala.pdf",
-    "data/rag_seed/primaire/langues_nationales/lingala/Manuel-de-leleve-_-3e-Annee-Lingala.pdf",
-    "data/rag_seed/primaire/langues_nationales/swahili/Cahier-de-leleve-_-1e-Annee-Kiswahili.pdf",
-    "data/rag_seed/primaire/langues_nationales/swahili/Cahier-de-leleve-_-2e-Annee-Kiswahili.pdf",
-    "data/rag_seed/primaire/langues_nationales/swahili/Cahier-de-leleve-_-3e-Annee-Kiswahili.pdf",
-    "data/rag_seed/primaire/langues_nationales/swahili/Guide-de-lenseignant-_1e-Annee-Kiswahili.pdf",
-    "data/rag_seed/primaire/langues_nationales/swahili/Guide-de-lenseignant-_2e-Annee-Kiswahili.pdf",
-    "data/rag_seed/primaire/langues_nationales/swahili/Guide-de-lenseignant-_3e-Annee-Kiswahili.pdf",
-    "data/rag_seed/primaire/langues_nationales/swahili/Manuel-de-leleve-_-2e-Annee-Kiswahili.pdf",
-    "data/rag_seed/primaire/langues_nationales/swahili/Manuel-de-leleve-_-3e-Annee-Kiswahili.pdf",
-    "data/rag_seed/primaire/langues_nationales/tshiluba/Cahier-de-leleve-_-1e-Annee-Ciluba.pdf",
-    "data/rag_seed/primaire/langues_nationales/tshiluba/Cahier-de-leleve-_-2e-Annee-Ciluba.pdf",
-    "data/rag_seed/primaire/langues_nationales/tshiluba/Cahier-de-leleve-_-3e-Annee-Ciluba.pdf",
-    "data/rag_seed/primaire/langues_nationales/tshiluba/Guide-de-lenseignant-_1e-Annee-Ciluba.pdf",
-    "data/rag_seed/primaire/langues_nationales/tshiluba/Guide-de-lenseignant-_2e-Annee-Ciluba.pdf",
-    "data/rag_seed/primaire/langues_nationales/tshiluba/Guide-de-lenseignant-_3e-Annee-Ciluba.pdf",
-    "data/rag_seed/primaire/langues_nationales/tshiluba/Manuel-de-leleve-_-1e-Annee-Ciluba.pdf",
-    "data/rag_seed/primaire/langues_nationales/tshiluba/Manuel-de-leleve-_-2e-Annee-Ciluba.pdf",
-    "data/rag_seed/primaire/langues_nationales/tshiluba/Manuel-de-leleve-_-3e-Annee-Ciluba.pdf",
-    "data/rag_seed/secondaire/1ere_HS/maths/MEPST_GUIDE_-PE3_MATH.pdf",
-    "data/rag_seed/secondaire/1ere_HS/maths/MEPST_Programmes-Educatifs_3e-Sec_1-HS_MATH.pdf",
-    "data/rag_seed/secondaire/1ere_HS/spttic/MEPST_GUIDE_PE3_SPTIC.pdf",
-    "data/rag_seed/secondaire/1ere_HS/spttic/MEPST_Programmes-Educatifs_3e-Sec_1-HS_SPTIC.pdf",
-    "data/rag_seed/secondaire/1ere_HS/svt/MEPST_GUIDE_PE3_SVT.pdf",
-    "data/rag_seed/secondaire/1ere_HS/svt/MEPST_Programmes-Educatifs_3e-Sec_1-HS_SVT.pdf",
-    "data/rag_seed/secondaire/2eme_HS/maths/MEPST_GUIDE_PE4_MATH.pdf",
-    "data/rag_seed/secondaire/2eme_HS/maths/MEPST_Programmes-Educatifs_4e-Sec_2-HS_MATH.pdf",
-    "data/rag_seed/secondaire/2eme_HS/spttic/MEPST_GUIDE_PE4_SPTIC.pdf",
-    "data/rag_seed/secondaire/2eme_HS/spttic/MEPST_Programmes-Educatifs_4e-Sec_2-HS_SPTIC.pdf",
-    "data/rag_seed/secondaire/2eme_HS/svt/MEPST_GUIDE_PE4_SVT.pdf",
-    "data/rag_seed/secondaire/2eme_HS/svt/MEPST_Programmes-Educatifs_4e-Sec_2-HS_SVT.pdf",
-    "data/rag_seed/secondaire/3eme_HS/maths/MEPST_GUIDE_PE5_MATH.pdf",
-    "data/rag_seed/secondaire/3eme_HS/maths/MEPST_Programmes-Educatifs_5e-Sec_3-HS_MATH.pdf",
-    "data/rag_seed/secondaire/3eme_HS/spttic/MEPST_GUIDE_PE5_SPTIC.pdf",
-    "data/rag_seed/secondaire/3eme_HS/spttic/MEPST_Programmes-Educatifs_5e-Sec_3-HS_SPTIC.pdf",
-    "data/rag_seed/secondaire/3eme_HS/svt/MEPST_GUIDE_PE5_SVT.pdf",
-    "data/rag_seed/secondaire/3eme_HS/svt/MEPST_Programmes-Educatifs_5e-Sec_3-HS_SVT.pdf",
-    "data/rag_seed/secondaire/4eme_HS/maths/MEPST_GUIDE_PE6_MATH.pdf",
-    "data/rag_seed/secondaire/4eme_HS/maths/MEPST_Programmes-Educatifs_6e-Sec_4-HS_MATH.pdf",
-    "data/rag_seed/secondaire/4eme_HS/spttic/MEPST_GUIDE_PE6_SPTIC.pdf",
-    "data/rag_seed/secondaire/4eme_HS/spttic/MEPST_Programmes-Educatifs_6e-Sec_4-HS_SPTIC.pdf",
-    "data/rag_seed/secondaire/4eme_HS/svt/MEPST_GUIDE_PE6_SVT.pdf",
-    "data/rag_seed/secondaire/4eme_HS/svt/MEPST_Programmes-Educatifs_6e-Sec_4-HS_SVT.pdf",
-    "data/rag_seed/secondaire/7eme_EB/maths/GUIDE-PE7-MATH_COMPLET.pdf",
-    "data/rag_seed/secondaire/7eme_EB/maths/PE7-MATH.pdf",
-    "data/rag_seed/secondaire/7eme_EB/spttic/GUIDE-PE7-SPTTIC.pdf",
-    "data/rag_seed/secondaire/7eme_EB/spttic/PE7-SPTTIC.pdf",
-    "data/rag_seed/secondaire/7eme_EB/svt/GUIDE-PE7-SVT.pdf",
-    "data/rag_seed/secondaire/7eme_EB/svt/PE7-SVT.pdf",
-    "data/rag_seed/secondaire/8eme_EB/maths/GUIDE-PE8-MATHs-116062019_DIPROMAD_MEPSP.pdf",
-    "data/rag_seed/secondaire/8eme_EB/maths/PE8-MATH-16062019_DIPROMAD_MEPSP.pdf",
-    "data/rag_seed/secondaire/8eme_EB/spttic/GUIDE-PE8-SPTTIC-16062019_DIPROMAD_MEPSP.pdf",
-    "data/rag_seed/secondaire/8eme_EB/spttic/PE8-SPTTIC-16062019_DIPROMAD_MEPSP.pdf",
-    "data/rag_seed/secondaire/8eme_EB/svt/GUIDE-PE8-SVT-16062019_DIPROMAD_MEPSP.pdf",
-    "data/rag_seed/secondaire/8eme_EB/svt/PE8-SVT-16062019_DIPROMAD_MEPSP.pdf"
-  ],
+  "orphan_on_disk_not_in_manifest": [],
+  "missing_on_disk_from_manifest": [],
   "missing_in_catalog": [],
   "categories": {
-    "langues_nationales": {
+    "secondaire/4eme_HS": {
+      "total": 6,
+      "indexed": 6,
+      "coverage": 100.0
+    },
+    "secondaire/1ere_HS": {
+      "total": 6,
+      "indexed": 6,
+      "coverage": 100.0
+    },
+    "primaire/langues_nationales": {
       "total": 26,
-      "indexed": 0,
-      "coverage": 0.0
+      "indexed": 26,
+      "coverage": 100.0
     },
-    "CRS": {
-      "total": 18,
-      "indexed": 0,
-      "coverage": 0.0
+    "autres/education_civique": {
+      "total": 2,
+      "indexed": 2,
+      "coverage": 100.0
     },
-    "geographie": {
-      "total": 1,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "4eme_HS": {
-      "total": 6,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "2eme_HS": {
-      "total": 6,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "formation": {
-      "total": 5,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "1ere_HS": {
-      "total": 6,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "7eme_EB": {
-      "total": 6,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "divers": {
-      "total": 8,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "francais": {
-      "total": 5,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "8eme_EB": {
-      "total": 6,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "3eme_HS": {
-      "total": 6,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "techniques": {
+    "autres/techniques": {
       "total": 3,
-      "indexed": 0,
-      "coverage": 0.0
+      "indexed": 3,
+      "coverage": 100.0
     },
-    "Guide-de-leducateur-_-Francais-CRS-N2.pdf": {
+    "autres/CRS": {
+      "total": 18,
+      "indexed": 18,
+      "coverage": 100.0
+    },
+    "autres/geographie": {
       "total": 1,
-      "indexed": 0,
-      "coverage": 0.0
+      "indexed": 1,
+      "coverage": 100.0
     },
-    "Guide-de-leducateur-_-Alphabetisation-fonctionnelle.pdf": {
+    "secondaire/3eme_HS": {
+      "total": 6,
+      "indexed": 6,
+      "coverage": 100.0
+    },
+    "guides_pedagogiques/psychopedagogie": {
       "total": 1,
-      "indexed": 0,
-      "coverage": 0.0
+      "indexed": 1,
+      "coverage": 100.0
     },
-    "administration": {
+    "guides_pedagogiques/Guide-de-leducateur-_-Alphabetisation-fonctionnelle.pdf": {
+      "total": 1,
+      "indexed": 1,
+      "coverage": 100.0
+    },
+    "primaire/francais": {
       "total": 5,
-      "indexed": 0,
-      "coverage": 0.0
+      "indexed": 5,
+      "coverage": 100.0
     },
-    "education_civique": {
+    "guides_pedagogiques/Guide-de-leducateur-_-Francais-oral-CRS-N1.pdf": {
+      "total": 1,
+      "indexed": 1,
+      "coverage": 100.0
+    },
+    "secondaire/2eme_HS": {
+      "total": 6,
+      "indexed": 6,
+      "coverage": 100.0
+    },
+    "guides_pedagogiques/formation": {
+      "total": 5,
+      "indexed": 5,
+      "coverage": 100.0
+    },
+    "secondaire/7eme_EB": {
+      "total": 6,
+      "indexed": 6,
+      "coverage": 100.0
+    },
+    "autres/divers": {
+      "total": 8,
+      "indexed": 8,
+      "coverage": 100.0
+    },
+    "guides_pedagogiques/Guide-de-leducateur-_-Francais-CRS-N2.pdf": {
+      "total": 1,
+      "indexed": 1,
+      "coverage": 100.0
+    },
+    "secondaire/8eme_EB": {
+      "total": 6,
+      "indexed": 6,
+      "coverage": 100.0
+    },
+    "autres/informatique": {
       "total": 2,
-      "indexed": 0,
-      "coverage": 0.0
+      "indexed": 2,
+      "coverage": 100.0
     },
-    "informatique": {
-      "total": 2,
-      "indexed": 0,
-      "coverage": 0.0
+    "autres/administration": {
+      "total": 5,
+      "indexed": 5,
+      "coverage": 100.0
     },
-    "Guide-de-leducateur-_-Alphabetisation-initiale.pdf": {
+    "guides_pedagogiques/Guide-de-leducateur-_-Alphabetisation-initiale.pdf": {
       "total": 1,
-      "indexed": 0,
-      "coverage": 0.0
+      "indexed": 1,
+      "coverage": 100.0
     },
-    "psychopedagogie": {
+    "autres/histoire": {
       "total": 1,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "Guide-de-leducateur-_-Francais-oral-CRS-N1.pdf": {
-      "total": 1,
-      "indexed": 0,
-      "coverage": 0.0
-    },
-    "histoire": {
-      "total": 1,
-      "indexed": 0,
-      "coverage": 0.0
+      "indexed": 1,
+      "coverage": 100.0
     }
   },
-  "recommendations": [
-    "⚠️  117 PDFs non référencés trouvés - À ajouter au catalog"
-  ]
+  "recommendations": []
 }
