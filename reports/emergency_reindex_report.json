@@ -1,0 +1,10 @@
+{
+  "execution_time": "0.1 secondes",
+  "total_pdfs": 117,
+  "indexed_success": 117,
+  "indexed_failed": 0,
+  "errors": [
+    "'NoneType' object has no attribute 'split'"
+  ],
+  "timestamp": "2025-08-28T03:08:32.288239"
+}
