@@ -1,3 +1,13 @@
-Étape 6 complétée le Thu, Aug 28, 2025  4:41:37 AM
-Performance: 100% hit@1, 100% coverage@5
-Documents indexés: 117
+Checkpoint Étape 6 — Qualité RAG & Monitoring
+----------------------------------------------
+Date : $(date)
+
+✅ Catalog & manifest alignés (id = filename.pdf)
+✅ Coverage@5 = 100%
+✅ Hit@1 = 100%
+✅ Docs indexés : 117 / 117
+✅ Non indexés : 0
+✅ CI/CD dual-mode fonctionnel (validate-ci, validate-local)
+✅ Hooks pre-commit opérationnels
+
+Référence : rapport_etape6_RAG_MONITORING.md
