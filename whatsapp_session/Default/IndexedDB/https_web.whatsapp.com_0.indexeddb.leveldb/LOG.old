@@ -1,0 +1,60 @@
+2025/09/03-15:21:37.049 57c8 Reusing MANIFEST D:\PROJET\moteyi-mvp\whatsapp_session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/09/03-15:21:37.050 57c8 Recovering log #1983
+2025/09/03-15:21:37.068 57c8 Reusing old log D:\PROJET\moteyi-mvp\whatsapp_session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/001983.log 
+2025/09/03-15:21:38.197 5940 Level-0 table #2008: started
+2025/09/03-15:21:38.204 5940 Level-0 table #2008: 629107 bytes OK
+2025/09/03-15:21:38.206 5940 Delete type=0 #1983
+2025/09/03-15:21:38.206 5940 Manual compaction at level-0 from '\x00+\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00,\x00\x00\x00' @ 0 : 0; will stop at '\x00+\x00\x00\x05' @ 5780124 : 1
+2025/09/03-15:21:38.207 5940 Compacting 1@0 + 0@1 files
+2025/09/03-15:21:38.217 5940 Generated table #2009@0: 15127 keys, 285596 bytes
+2025/09/03-15:21:38.217 5940 Generated table #2010@0: 226 keys, 20268 bytes
+2025/09/03-15:21:38.217 5940 Compacted 1@0 + 0@1 files => 305864 bytes
+2025/09/03-15:21:38.218 5940 compacted to: files[ 0 2 19 0 0 0 0 ]
+2025/09/03-15:21:38.218 5940 Delete type=2 #2008
+2025/09/03-15:21:38.219 57c8 Manual compaction at level-0 from '\x00+\x00\x00\x05' @ 5780124 : 1 .. '\x00,\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/09/03-15:21:39.109 5940 Compacting 1@1 + 9@2 files
+2025/09/03-15:21:39.147 5940 Generated table #2011@1: 25575 keys, 2237292 bytes
+2025/09/03-15:21:39.181 5940 Generated table #2012@1: 25610 keys, 2230669 bytes
+2025/09/03-15:21:39.195 5940 Generated table #2013@1: 5065 keys, 2128151 bytes
+2025/09/03-15:21:39.210 5940 Generated table #2014@1: 3272 keys, 2121108 bytes
+2025/09/03-15:21:39.238 5940 Generated table #2015@1: 61080 keys, 2198028 bytes
+2025/09/03-15:21:39.275 5940 Generated table #2016@1: 106178 keys, 2258923 bytes
+2025/09/03-15:21:39.314 5940 Generated table #2017@1: 106032 keys, 2258808 bytes
+2025/09/03-15:21:39.351 5940 Generated table #2018@1: 105413 keys, 2257300 bytes
+2025/09/03-15:21:39.374 5940 Generated table #2019@1: 65831 keys, 1451274 bytes
+2025/09/03-15:21:39.374 5940 Compacted 1@1 + 9@2 files => 19141553 bytes
+2025/09/03-15:21:39.375 5940 compacted to: files[ 0 1 19 0 0 0 0 ]
+2025/09/03-15:21:39.375 5940 Delete type=2 #1987
+2025/09/03-15:21:39.375 5940 Delete type=2 #1988
+2025/09/03-15:21:39.375 5940 Delete type=2 #1989
+2025/09/03-15:21:39.375 5940 Delete type=2 #1990
+2025/09/03-15:21:39.375 5940 Delete type=2 #1991
+2025/09/03-15:21:39.375 5940 Delete type=2 #1992
+2025/09/03-15:21:39.375 5940 Delete type=2 #1993
+2025/09/03-15:21:39.375 5940 Delete type=2 #1994
+2025/09/03-15:21:39.375 5940 Delete type=2 #1995
+2025/09/03-15:21:39.375 5940 Delete type=2 #2010
+2025/09/03-15:21:39.492 5940 Compacting 1@1 + 10@2 files
+2025/09/03-15:21:39.530 5940 Generated table #2020@1: 89269 keys, 2241562 bytes
+2025/09/03-15:21:39.558 5940 Generated table #2021@1: 59031 keys, 2231905 bytes
+2025/09/03-15:21:39.586 5940 Generated table #2022@1: 47002 keys, 2206014 bytes
+2025/09/03-15:21:39.615 5940 Generated table #2023@1: 43044 keys, 2205322 bytes
+2025/09/03-15:21:39.624 5940 Generated table #2024@1: 1342 keys, 2145424 bytes
+2025/09/03-15:21:39.634 5940 Generated table #2025@1: 1201 keys, 2148234 bytes
+2025/09/03-15:21:39.645 5940 Generated table #2026@1: 1843 keys, 2151097 bytes
+2025/09/03-15:21:39.655 5940 Generated table #2027@1: 1543 keys, 2150773 bytes
+2025/09/03-15:21:39.663 5940 Generated table #2028@1: 1091 keys, 2136701 bytes
+2025/09/03-15:21:39.689 5940 Generated table #2029@1: 21894 keys, 2235126 bytes
+2025/09/03-15:21:39.689 5940 Compacted 1@1 + 10@2 files => 21852158 bytes
+2025/09/03-15:21:39.690 5940 compacted to: files[ 0 0 19 0 0 0 0 ]
+2025/09/03-15:21:39.690 5940 Delete type=2 #1996
+2025/09/03-15:21:39.690 5940 Delete type=2 #1997
+2025/09/03-15:21:39.690 5940 Delete type=2 #1998
+2025/09/03-15:21:39.690 5940 Delete type=2 #1999
+2025/09/03-15:21:39.690 5940 Delete type=2 #2000
+2025/09/03-15:21:39.690 5940 Delete type=2 #2001
+2025/09/03-15:21:39.690 5940 Delete type=2 #2002
+2025/09/03-15:21:39.690 5940 Delete type=2 #2003
+2025/09/03-15:21:39.690 5940 Delete type=2 #2004
+2025/09/03-15:21:39.690 5940 Delete type=2 #2005
+2025/09/03-15:21:39.690 5940 Delete type=2 #2009

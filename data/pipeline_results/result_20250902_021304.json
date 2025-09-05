@@ -1,0 +1,9 @@
+{
+  "image": "data/received_images/capture_20250902_013644.png",
+  "ocr_text": "Exercice de Francais\n        Complete avec le bon verbe:\n        Les enfants _____ (jouer) dans la cour.\n        Mama _____ (preparer) le diner.\n        \n        Mets au pluriel:\n        Un livre -> Des _____\n        Le cahier -> Les _____",
+  "context": "Programme RDC - 3eme primaire:\n        - Conjugaison present de l'indicatif\n        - Accord sujet-verbe\n        - Pluriel des noms simples\n        - Vocabulaire du quotidien congolais",
+  "explanation": "Bonjour! Je suis Moteyi, ton tuteur.\n\nExercice: Exercice de Francais\n        Complete avec le bon ...\n\nEXPLICATION:\n- Pour l'addition 15 + 23, compte d'abord les dizaines: 10 + 20 = 30\n- Puis ajoute les unites: 5 + 3 = 8\n- Donc 15 + 23 = 38\n\nN'oublie pas de bien ecrire dans ton cahier!\nContexte: Programme RDC - 3eme primaire:\n        - Conjugaison present de l'indicatif\n        - Accord sujet-v...",
+  "audio": "data/audio_responses/response_20250902_021304_francais.mp3",
+  "language": "francais",
+  "processing_time": 0.0018658638000488281
+}
