@@ -1,0 +1,40 @@
+{
+  "generated_at": "2025-09-06T01:59:57",
+  "checks": {
+    "rag_eval": {
+      "ok": false,
+      "out": "",
+      "err": "[WinError 2] Le fichier spécifié est introuvable",
+      "code": -1,
+      "coverage@5": null,
+      "hit@1": null
+    },
+    "manifest": {
+      "length": 117,
+      "note": null
+    },
+    "pdfs": {
+      "count": 117
+    },
+    "languages": [],
+    "latency": {
+      "found_file": false,
+      "events": [],
+      "p50": null,
+      "p95": null,
+      "avg": null
+    },
+    "health": {
+      "url": null,
+      "code": null,
+      "ok": false
+    }
+  },
+  "status": [
+    "RAG eval KO",
+    "Manifest=117 docs",
+    "PDFs=117",
+    "Latence non estimable (logs)",
+    "Langues détectées prompts: —"
+  ]
+}

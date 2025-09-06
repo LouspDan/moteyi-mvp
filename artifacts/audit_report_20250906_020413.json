@@ -1,0 +1,42 @@
+{
+  "generated_at": "2025-09-06T02:04:13",
+  "checks": {
+    "rag_eval": {
+      "ok": false,
+      "out": "",
+      "err": "[WinError 2] Le fichier spécifié est introuvable",
+      "code": -1,
+      "coverage@5": null,
+      "hit@1": null
+    },
+    "manifest": {
+      "length": 117,
+      "note": null
+    },
+    "pdfs": {
+      "count": 117
+    },
+    "languages": [],
+    "latency": {
+      "found_file": false,
+      "events": [],
+      "p50": null,
+      "p95": null,
+      "avg": null,
+      "count": 0
+    },
+    "health": {
+      "url": "http://127.0.0.1:5000/health",
+      "code": null,
+      "ok": false,
+      "err": "<urlopen error [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée>"
+    }
+  },
+  "status": [
+    "RAG eval KO",
+    "Corpus: PDFs=117 | manifest=117",
+    "Latence: non estimable (logs)",
+    "Prompts/langues: —",
+    "Health: KO"
+  ]
+}
