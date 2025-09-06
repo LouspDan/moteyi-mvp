@@ -22,3 +22,5 @@ logs/
 # VS code
 .vs/
 *.vsidx
+# Ignorer tous les fichiers audio MP3
+*.mp3
