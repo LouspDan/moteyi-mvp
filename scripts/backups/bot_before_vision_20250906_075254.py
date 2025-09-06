@@ -19,7 +19,6 @@ from datetime import datetime
 from ocr_enhanced_simple import SimpleEnhancedOCR as RealOCR  # OCR amélioré
 from gpt_real import RealGPT  
 from tts_real import RealTTS
-from ocr_vision import VisionOCR as RealOCR  # Upgraded to GPT-4 Vision
 
 # NOUVEAUX MODULES - Multilingue et RAG
 from language_manager import LanguageManager, handle_language_selection

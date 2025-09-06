@@ -16,10 +16,9 @@ import logging
 from datetime import datetime
 
 # Nos modules existants
-from ocr_enhanced_simple import SimpleEnhancedOCR as RealOCR  # OCR amélioré
+from ocr_real_english import RealOCR
 from gpt_real import RealGPT  
 from tts_real import RealTTS
-from ocr_vision import VisionOCR as RealOCR  # Upgraded to GPT-4 Vision
 
 # NOUVEAUX MODULES - Multilingue et RAG
 from language_manager import LanguageManager, handle_language_selection
