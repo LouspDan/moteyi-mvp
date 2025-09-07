@@ -1,0 +1,82 @@
+./.github/scripts/check_rag_seed_catalog.py
+./archive/backups/rag_eval.backup_20250828_041623.py
+./archive/backups/rag_eval.backup_real_20250828_042457.py
+./archive/backups/rag_eval.backup2_20250828_042037.py
+./archive/legacy_scripts/moteyi_bot_integrated.py
+./archive/legacy_scripts/moteyi_bot_simple.py
+./archive/legacy_scripts/rag_connector_old.py
+./archive/legacy_scripts/whatsapp_connection_test.py
+./archive/legacy_scripts/whatsapp_debug.py
+./archive/legacy_scripts/whatsapp_image_downloader.py
+./archive/legacy_scripts/whatsapp_message_reader.py
+./archive/legacy_scripts/whatsapp_simple_monitor.py
+./archive/test_scripts/ocr_processor.py
+./archive/test_scripts/pipeline_mvp.py
+./archive/test_scripts/rag_index.py
+./archive/test_scripts/test_fix.py
+./archive/test_scripts/test_openai_new.py
+./archive/test_scripts/test_port.py
+./archive/test_scripts/test_tesseract_fixed.py
+./archive/test_scripts/test_tesseract_real.py
+./archive/test_scripts/test_whatsapp_send.py
+./checkpoints/etape6_complete/rag_eval.py
+./data/rag_seed/scripts/analyse.py
+./data/rag_seed/scripts/check_rag_seed_catalog.py
+./data/rag_seed/scripts/dashboard.py
+./data/rag_seed/scripts/fix_structure.py
+./data/rag_seed/scripts/migrate_catalog_schema.py
+./data/rag_seed/scripts/report_rag.py
+./data/rag_seed/scripts/scraper_edu_rdc.py
+./data/rag_seed/scripts/validator.py
+./moteyi_repo_audit.py
+./rag/export_jsonl.py
+./scripts/__init__.py
+./scripts/active/gpt_real.py
+./scripts/active/language_manager.py
+./scripts/active/moteyi_whatsapp_cloud_bot.py
+./scripts/active/ocr_enhanced_simple.py
+./scripts/active/ocr_real.py
+./scripts/active/ocr_vision.py
+./scripts/active/rag_connector.py
+./scripts/active/rag_index_real.py
+./scripts/active/tts_real.py
+./scripts/archives/test_rag_final.py
+./scripts/archives/test_rag_paths.py
+./scripts/archives/test_rag_real.py
+./scripts/backups/bot_20250906_074625.py
+./scripts/backups/bot_before_vision_20250906_075254.py
+./scripts/backups/emergency_20250906_071908.py
+./scripts/backups/moteyi_whatsapp_cloud_bot_20250906_064904.py
+./scripts/backups/moteyi_whatsapp_cloud_bot_20250906_071223.py
+---STRUCTURE DIRECTORIES---
+---FICHIERS CRITIQUES---
+-rw-r--r-- 1 CYTech Student 197121     0 Aug 27 13:51 scripts/__init__.py
+-rwxr-xr-x 1 CYTech Student 197121 10626 Sep  6 04:25 scripts/bot_multilingue_integration.py*
+-rwxr-xr-x 1 CYTech Student 197121  3267 Sep  2 00:19 scripts/check_rag_seed_catalog_flexible.py*
+-rwxr-xr-x 1 CYTech Student 197121  5150 Aug 27 14:05 scripts/eval_report.py*
+-rw-r--r-- 1 CYTech Student 197121  1313 Sep  3 15:25 scripts/fix_whatsapp_send.py
+-rw-r--r-- 1 CYTech Student 197121    72 Aug 29 00:23 scripts/generate_rag_report.py
+-rw-r--r-- 1 CYTech Student 197121  4674 Sep  3 14:17 scripts/gpt_real.py
+-rwxr-xr-x 1 CYTech Student 197121  1437 Aug 29 00:23 scripts/hook_validate.py*
+-rwxr-xr-x 1 CYTech Student 197121  1476 Aug 29 00:23 scripts/implement_real_retriever.py*
+-rwxr-xr-x 1 CYTech Student 197121  6695 Sep  6 07:52 scripts/implement_vision_api.py*
+-rwxr-xr-x 1 CYTech Student 197121 13236 Sep  6 05:17 scripts/language_manager.py*
+-rw-r--r-- 1 CYTech Student 197121  7769 Sep  3 14:44 scripts/moteyi_bot_final.py
+-rw-r--r-- 1 CYTech Student 197121  8651 Sep  3 15:20 scripts/moteyi_bot_real_complete.py
+-rw-r--r-- 1 CYTech Student 197121 29898 Sep  6 07:52 scripts/moteyi_whatsapp_cloud_bot.py
+-rw-r--r-- 1 CYTech Student 197121  5077 Sep  6 07:46 scripts/ocr_enhanced_simple.py
+-rw-r--r-- 1 CYTech Student 197121  4400 Sep  3 13:44 scripts/ocr_real.py
+-rw-r--r-- 1 CYTech Student 197121  2473 Sep  3 13:47 scripts/ocr_real_english.py
+-rw-r--r-- 1 CYTech Student 197121  2453 Sep  6 08:30 scripts/ocr_vision.py
+-rwxr-xr-x 1 CYTech Student 197121 10045 Sep  6 01:58 scripts/quick_audit.py*
+-rwxr-xr-x 1 CYTech Student 197121  8581 Sep  6 03:59 scripts/rag_connector.py*
+---ACTIVE FOLDER---
+-rw-r--r-- 1 CYTech Student 197121  4674 Sep  7 18:39 scripts/active/gpt_real.py
+-rwxr-xr-x 1 CYTech Student 197121 13236 Sep  6 23:01 scripts/active/language_manager.py*
+-rw-r--r-- 1 CYTech Student 197121 29863 Sep  7 18:23 scripts/active/moteyi_whatsapp_cloud_bot.py
+-rw-r--r-- 1 CYTech Student 197121  5077 Sep  7 18:39 scripts/active/ocr_enhanced_simple.py
+-rw-r--r-- 1 CYTech Student 197121  4400 Sep  7 18:39 scripts/active/ocr_real.py
+-rw-r--r-- 1 CYTech Student 197121  2453 Sep  6 23:01 scripts/active/ocr_vision.py
+-rwxr-xr-x 1 CYTech Student 197121  8581 Sep  6 23:01 scripts/active/rag_connector.py*
+-rwxr-xr-x 1 CYTech Student 197121  1423 Sep  6 23:01 scripts/active/rag_index_real.py*
+-rw-r--r-- 1 CYTech Student 197121  3511 Sep  7 18:39 scripts/active/tts_real.py

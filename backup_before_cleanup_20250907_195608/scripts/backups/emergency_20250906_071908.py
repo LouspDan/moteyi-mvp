@@ -1,5 +1,4 @@
 # scripts/moteyi_whatsapp_cloud_bot.py
-import sys
 """
 Bot Moteyi avec WhatsApp Cloud API - Version 2.0
 Avec support Multilingue (FR, Lingala, Kiswahili, Tshiluba, EN) et RAG intégré
@@ -17,10 +16,9 @@ import logging
 from datetime import datetime
 
 # Nos modules existants
-from ocr_vision import VisionOCR as RealOCR
+from ocr_real_english import RealOCR
 from gpt_real import RealGPT  
 from tts_real import RealTTS
-from ocr_vision import VisionOCR as RealOCR  # Upgraded to GPT-4 Vision
 
 # NOUVEAUX MODULES - Multilingue et RAG
 from language_manager import LanguageManager, handle_language_selection
@@ -415,10 +413,10 @@ class MoteyiCloudBot:
         gpt_prefix = lang_manager.get_gpt_prompt_prefix(user_language)
         
         if context['found']:
-            full_prompt = create_math_enhanced_prompt(text, context)
+            full_prompt = create_math_enhanced_prompt(ocr_text, context)
             print(f"📚 RAG: {len(context['documents'])} documents utilisés")
         else:
-            full_prompt = create_math_enhanced_prompt(text, context)
+            full_prompt = create_math_enhanced_prompt(ocr_text, context)
         
         # 6. Générer la réponse avec GPT
         written_explanation = self.call_gpt(full_prompt, user_language)

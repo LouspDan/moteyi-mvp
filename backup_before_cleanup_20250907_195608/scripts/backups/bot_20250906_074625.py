@@ -1,5 +1,4 @@
 # scripts/moteyi_whatsapp_cloud_bot.py
-import sys
 """
 Bot Moteyi avec WhatsApp Cloud API - Version 2.0
 Avec support Multilingue (FR, Lingala, Kiswahili, Tshiluba, EN) et RAG intégré
@@ -17,10 +16,9 @@ import logging
 from datetime import datetime
 
 # Nos modules existants
-from ocr_vision import VisionOCR as RealOCR
+from ocr_real_english import RealOCR
 from gpt_real import RealGPT  
 from tts_real import RealTTS
-from ocr_vision import VisionOCR as RealOCR  # Upgraded to GPT-4 Vision
 
 # NOUVEAUX MODULES - Multilingue et RAG
 from language_manager import LanguageManager, handle_language_selection

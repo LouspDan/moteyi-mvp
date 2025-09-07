@@ -1,5 +1,4 @@
 # scripts/moteyi_whatsapp_cloud_bot.py
-import sys
 """
 Bot Moteyi avec WhatsApp Cloud API - Version 2.0
 Avec support Multilingue (FR, Lingala, Kiswahili, Tshiluba, EN) et RAG intégré
@@ -17,82 +16,13 @@ import logging
 from datetime import datetime
 
 # Nos modules existants
-from ocr_vision import VisionOCR as RealOCR
+from ocr_real_english import RealOCR
 from gpt_real import RealGPT  
 from tts_real import RealTTS
-from ocr_vision import VisionOCR as RealOCR  # Upgraded to GPT-4 Vision
 
 # NOUVEAUX MODULES - Multilingue et RAG
 from language_manager import LanguageManager, handle_language_selection
 from rag_connector import CongoRAGConnector
-
-
-# ========== MATH LOGIC ENHANCEMENT - Point A.2 ==========
-def detect_math_type(text):
-    """Détecte le type de problème mathématique"""
-    text_lower = text.lower()
-    
-    if any(p in text_lower for p in ['(', ')', '²', 'second degré']):
-        if '²' in text or '^2' in text:
-            return 'equation_quadratique'
-    elif '=' in text and any(c in text for c in 'xyz'):
-        return 'equation_lineaire'
-    elif any(op in text for op in ['+', '-', '*', '/', '×', '÷']):
-        return 'calcul_arithmetique'
-    else:
-        return 'general'
-
-def create_math_enhanced_prompt(ocr_text, context_rag=None):
-    """Crée un prompt mathématique optimisé"""
-    math_type = detect_math_type(ocr_text)
-    
-    if math_type == 'equation_quadratique':
-        return f"""Tu es un tuteur expert. 
-Exercice: {ocr_text}
-
-Pour (x-a)² = b:
-1. x-a = ±√b
-2. x = a±√b (DEUX solutions)
-3. Vérifie chaque solution
-
-Résous étape par étape."""
-    
-    return f"Résous: {ocr_text}\nMontre toutes les étapes."
-# ========== END MATH ENHANCEMENT ==========
-
-
-# ========== MATH LOGIC ENHANCEMENT - Point A.2 ==========
-def detect_math_type(text):
-    """Détecte le type de problème mathématique"""
-    text_lower = text.lower()
-    
-    if any(p in text_lower for p in ['(', ')', '²', 'second degré']):
-        if '²' in text or '^2' in text:
-            return 'equation_quadratique'
-    elif '=' in text and any(c in text for c in 'xyz'):
-        return 'equation_lineaire'
-    elif any(op in text for op in ['+', '-', '*', '/', '×', '÷']):
-        return 'calcul_arithmetique'
-    else:
-        return 'general'
-
-def create_math_enhanced_prompt(ocr_text, context_rag=None):
-    """Crée un prompt mathématique optimisé"""
-    math_type = detect_math_type(ocr_text)
-    
-    if math_type == 'equation_quadratique':
-        return f"""Tu es un tuteur expert. 
-Exercice: {ocr_text}
-
-Pour (x-a)² = b:
-1. x-a = ±√b
-2. x = a±√b (DEUX solutions)
-3. Vérifie chaque solution
-
-Résous étape par étape."""
-    
-    return f"Résous: {ocr_text}\nMontre toutes les étapes."
-# ========== END MATH ENHANCEMENT ==========
 
 # Charger les variables
 load_dotenv()
@@ -415,10 +345,10 @@ class MoteyiCloudBot:
         gpt_prefix = lang_manager.get_gpt_prompt_prefix(user_language)
         
         if context['found']:
-            full_prompt = create_math_enhanced_prompt(text, context)
+            full_prompt = f"{gpt_prefix}\n\n{context['prompt_enhancement']}"
             print(f"📚 RAG: {len(context['documents'])} documents utilisés")
         else:
-            full_prompt = create_math_enhanced_prompt(text, context)
+            full_prompt = f"{gpt_prefix}\n\nQuestion: {text}\n\nRéponds de manière pédagogique."
         
         # 6. Générer la réponse avec GPT
         written_explanation = self.call_gpt(full_prompt, user_language)

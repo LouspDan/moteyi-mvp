@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import sys
 """
 Gestionnaire de langues pour le bot Moteyi
 Support : Français, Lingala, Kiswahili, Tshiluba, Anglais

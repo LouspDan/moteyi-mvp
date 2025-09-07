@@ -1,5 +1,4 @@
 # scripts/moteyi_whatsapp_cloud_bot.py
-import sys
 """
 Bot Moteyi avec WhatsApp Cloud API - Version 2.0
 Avec support Multilingue (FR, Lingala, Kiswahili, Tshiluba, EN) et RAG intégré

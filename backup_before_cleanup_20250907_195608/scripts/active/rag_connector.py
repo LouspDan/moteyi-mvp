@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import sys
 """
 Connecteur RAG corrigé pour Moteyi - Version simplifiée
 Fonctionne avec le manifest en liste de 117 documents
