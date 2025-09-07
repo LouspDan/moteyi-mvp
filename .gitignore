@@ -38,3 +38,9 @@ cache/*
 # Log files but keep structure
 logs/*
 !logs/.gitkeep
+# Environnements virtuels
+venv/
+test_env/
+*.pyc
+__pycache__/
+.pytest_cache/
