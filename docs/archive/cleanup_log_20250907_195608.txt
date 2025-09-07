@@ -1,0 +1,60 @@
+[0;32m=== ÉTAPE 1: BACKUP DE SÉCURITÉ ===[0m
+Création du backup dans: /d/PROJET/moteyi-mvp/backup_before_cleanup_20250907_195608
+[0;32m✓ Backup complet créé[0m
+
+[0;32m=== ÉTAPE 2: INVENTAIRE INITIAL ===[0m
+Nombre de fichiers Python dans scripts/: 47
+Nombre de fichiers Python dans scripts/active/: 9
+
+[0;32m=== ÉTAPE 3: SÉLECTION VERSION CANONIQUE ===[0m
+Version canonique du bot: scripts/active/moteyi_whatsapp_cloud_bot.py
+
+[0;32m=== ÉTAPE 4: SUPPRESSION DOUBLONS ===[0m
+Suppression doublon: scripts/moteyi_whatsapp_cloud_bot.py
+Suppression doublon: scripts/language_manager.py
+Suppression doublon: scripts/rag_connector.py
+Suppression doublon: scripts/ocr_vision.py
+Suppression doublon: scripts/gpt_real.py
+Suppression doublon: scripts/tts_real.py
+Suppression doublon: scripts/ocr_enhanced_simple.py
+Suppression doublon: scripts/ocr_real.py
+
+[0;32m=== ÉTAPE 5: ARCHIVAGE BACKUPS ===[0m
+Archivage: scripts/backups/bot_20250906_074625.py → archive/backups/bot_20250906_074625.py
+Archivage: scripts/backups/bot_before_vision_20250906_075254.py → archive/backups/bot_before_vision_20250906_075254.py
+Archivage: scripts/backups/emergency_20250906_071908.py → archive/backups/emergency_20250906_071908.py
+Archivage: scripts/backups/moteyi_whatsapp_cloud_bot_20250906_064904.py → archive/backups/moteyi_whatsapp_cloud_bot_20250906_064904.py
+Archivage: scripts/backups/moteyi_whatsapp_cloud_bot_20250906_071223.py → archive/backups/moteyi_whatsapp_cloud_bot_20250906_071223.py
+Archivage: scripts/backups/moteyi_whatsapp_cloud_bot_20250906_071346.py → archive/backups/moteyi_whatsapp_cloud_bot_20250906_071346.py
+Archivage: scripts/archives/test_rag_final.py → archive/test_scripts/test_rag_final.py
+Archivage: scripts/archives/test_rag_paths.py → archive/test_scripts/test_rag_paths.py
+Archivage: scripts/archives/test_rag_real.py → archive/test_scripts/test_rag_real.py
+
+[0;32m=== ÉTAPE 6: TRI DES FICHIERS RESTANTS ===[0m
+Archivage: scripts/bot_multilingue_integration.py → archive/legacy_scripts/
+Archivage: scripts/check_rag_seed_catalog_flexible.py → archive/legacy_scripts/
+Archivage: scripts/eval_report.py → archive/test_scripts/
+Archivage: scripts/fix_whatsapp_send.py → archive/legacy_scripts/
+Archivage: scripts/generate_rag_report.py → archive/legacy_scripts/
+Archivage: scripts/hook_validate.py → archive/legacy_scripts/
+Archivage: scripts/implement_real_retriever.py → archive/legacy_scripts/
+Archivage: scripts/implement_vision_api.py → archive/legacy_scripts/
+Archivage: scripts/moteyi_bot_final.py → archive/legacy_scripts/
+Archivage: scripts/moteyi_bot_real_complete.py → archive/legacy_scripts/
+Archivage: scripts/ocr_real_english.py → archive/legacy_scripts/
+Archivage: scripts/quick_audit.py → archive/legacy_scripts/
+
+[0;32m=== ÉTAPE 7: VALIDATION ===[0m
+[1;33m⚠ Fichiers restants dans scripts/:[0m
+Fichiers dans scripts/active/: 9
+Modules actifs:
+
+[0;32m=== RAPPORT FINAL ===[0m
+Backup disponible: /d/PROJET/moteyi-mvp/backup_before_cleanup_20250907_195608
+Structure finale:
+  - scripts/active/ : Modules de production
+  - archive/legacy_scripts/ : Scripts obsolètes
+  - archive/test_scripts/ : Scripts de test
+  - archive/backups/ : Sauvegardes
+[0;32m✅ NETTOYAGE TERMINÉ AVEC SUCCÈS[0m
+Log complet: /d/PROJET/moteyi-mvp/cleanup_log_20250907_195608.txt

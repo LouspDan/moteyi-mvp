@@ -24,3 +24,23 @@ logs/
 *.vsidx
 # Ignorer tous les fichiers audio MP3
 *.mp3
+
+# Cache files but keep structure
+cache/*
+
+# Log files but keep structure
+logs/*
+
+# Cache files but keep structure
+cache/*
+!cache/.gitkeep
+
+# Log files but keep structure
+logs/*
+!logs/.gitkeep
+# Environnements virtuels
+venv/
+test_env/
+*.pyc
+__pycache__/
+.pytest_cache/
