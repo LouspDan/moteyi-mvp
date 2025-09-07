@@ -59,3 +59,51 @@ drwxr-xr-x 1 CYTech Student 197121       0 Sep  6 18:21 tools/
 drwxr-xr-x 1 CYTech Student 197121       0 Aug 26 17:56 venv/
 === Suppression des dossiers vides ===
 Phase 1 terminée - Dossiers vides supprimés
+=== Phase 2 : Nettoyage backups et caches ===
+- Supprimé: backup_before_cleanup_20250907_195608/
+- Nettoyé: __pycache__ dans scripts/ et archive/
+- Supprimé: fichiers .pyc
+- Supprimé: fichiers .backup et temporaires
+
+Espace après Phase 2:
+0	./infra
+0	./missing_docs.txt
+1.0K	./=1.0.0
+1.0K	./cache
+1.0K	./CODEOWNERS
+1.0K	./CONTRIBUTING.md
+1.0K	./LICENSE
+1.0K	./logs
+1.0K	./rag
+1.0K	./SECURITY.md
+1.0K	./tests
+2.0K	./config
+4.0K	./=2.31.0
+4.0K	./CHANGELOG.md
+4.0K	./cleanup_log_20250907_195608.txt
+4.0K	./cleanup_report.md
+4.0K	./create_inventory.sh
+4.0K	./expected_ids.txt
+4.0K	./fix_encoding.py
+4.0K	./fix_encoding_issue.py
+4.0K	./makefile
+4.0K	./README.md
+4.0K	./README_Etape4.md
+4.0K	./README_Migration.md
+4.0K	./requirements.txt
+4.0K	./test_math_fix.py
+8.0K	./available_ids.txt
+8.0K	./CLEANUP_LOG.md
+8.0K	./structure_python.txt
+10K	./reports
+12K	./inventory_cleanup.txt
+12K	./moteyi_repo_audit.py
+28K	./scraper.log
+82K	./artifacts
+83K	./checkpoints
+108K	./scripts
+168K	./tools
+479K	./archive
+1.1M	./docs
+1.9M	./INVENTORY_20250907_203758.txt
+569M	./data
